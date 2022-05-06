@@ -33,6 +33,32 @@ export default {
         text2: 'customers',
       },
     ],
+    colors: [
+      {
+        color: 'Blue',
+        hue: '207',
+        sat: '90%',
+        lig: '61%',
+      },
+      {
+        color: 'Purple',
+        hue: '250',
+        sat: '66%',
+        lig: '75%',
+      },
+      {
+        color: 'Pink',
+        hue: '356',
+        sat: '90%',
+        lig: '61%',
+      },
+      {
+        color: 'Teal',
+        hue: '174',
+        sat: '63%',
+        lig: '62%',
+      },
+    ],
   },
   tabs: [
     {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import {
   RiMoonLine,
   RiDownloadLine,
@@ -13,13 +13,27 @@ interface Props {
   setDark: Dispatch<SetStateAction<boolean>>
 }
 const Header = ({ dark, setDark }: Props) => {
+  const [value, setValue] = useState(0)
+
   const {
-    header: { socialLinks, experience },
+    header: { socialLinks, experience, colors },
   } = data
 
   const toggleTheme = () => {
     setDark(!dark)
     localStorage.setItem('dark-theme', dark.toString())
+  }
+
+  const handleColors = (
+    hue: string | null,
+    sat: string | null,
+    lig: string | null,
+    index: number
+  ) => {
+    document.documentElement.style.setProperty('--hue', hue)
+    document.documentElement.style.setProperty('--sat', sat)
+    document.documentElement.style.setProperty('--lig', lig)
+    setValue(index)
   }
 
   return (
@@ -30,6 +44,24 @@ const Header = ({ dark, setDark }: Props) => {
       ) : (
         <RiMoonLine onClick={() => toggleTheme()} className='change-theme' />
       )}
+
+      {/* Colors Choose */}
+      <div className='color-btns'>
+        {colors.map((col, i) => {
+          const { color, hue, sat, lig } = col
+          return (
+            <div
+              onClick={() => handleColors(hue, sat, lig, i)}
+              title={color}
+              className={`color-btn ${value === i && 'color-btn-active'}`}
+              style={{
+                backgroundColor: `hsl(${hue}, ${sat}, ${lig})`,
+              }}
+              key={i}
+            ></div>
+          )
+        })}
+      </div>
 
       <div className='profile__container grid'>
         <div className='profile__data'>

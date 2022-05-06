@@ -94,6 +94,36 @@ img {
   color: var(--first-color);
 }
 
+.color-btns {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  cursor: pointer;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.color-btn {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-btn-active::after {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid inherit;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--first-color);
+}
+
 /*========== Variables Dark theme ==========*/
 body.dark-theme {
   --title-color: hsl(var(--hue), 12%, 95%);
@@ -388,6 +418,7 @@ body.dark-theme {
   display: grid;
   place-items: center;
 }
+
 .dark-theme .projects__tag {
   color: #fff;
 }
@@ -530,6 +561,11 @@ body.dark-theme {
   .change-theme {
     top: 2.5rem;
     right: 2.5rem;
+  }
+
+  .color-btns {
+    top: 2.5rem;
+    left: 2.5rem;
   }
 
   .profile {
