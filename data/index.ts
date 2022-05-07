@@ -1,4 +1,17 @@
 import { RiCodepenLine, RiLinkedinLine, RiGithubLine } from 'react-icons/ri'
+import {
+  SiAuth0,
+  SiBootstrap,
+  SiFirebase,
+  SiNextdotjs,
+  SiNpm,
+  SiReact,
+  SiRedux,
+  SiTailwindcss,
+  SiThemoviedatabase,
+  SiTypescript,
+  SiYarn,
+} from 'react-icons/si'
 
 export default {
   header: {
@@ -73,7 +86,25 @@ export default {
       img: '/project2extra.png',
       title: 'Disney+ clone',
       subtitle: 'web',
-      tags: ['nextjs', 'tailwind', 'nextauth', 'TMDB api'],
+      tags: [
+        { title: 'Next.js', icon: SiNextdotjs, color: 'hsl(0, 0%, 100%)' },
+        {
+          title: 'TypeScript',
+          icon: SiTypescript,
+          color: 'hsl(214, 55%, 51%)',
+        },
+        {
+          title: 'Tailwindcss',
+          icon: SiTailwindcss,
+          color: 'hsl(203, 91%, 67%)',
+        },
+        { title: 'Nextauth', icon: SiAuth0, color: 'hsl(283, 72%, 50%)' },
+        {
+          title: 'TMDB API',
+          icon: SiThemoviedatabase,
+          color: 'hsl(185, 40%, 53%)',
+        },
+      ],
       url: {
         github: 'https://github.com/yousefomar724/disney-clone',
         live: '',
@@ -83,7 +114,12 @@ export default {
       img: '/project2.png',
       title: 'Recipe Maker',
       subtitle: 'web',
-      tags: ['react', 'redux', 'fairebase', 'bootstrap'],
+      tags: [
+        { title: 'React', icon: SiReact, color: 'hsl(205, 70%, 60%)' },
+        { title: 'Redux', icon: SiRedux, color: 'hsl(263, 46%, 66%)' },
+        { title: 'Firebase', icon: SiFirebase, color: 'hsl(48, 90%, 57%)' },
+        { title: 'Bootstrap', icon: SiBootstrap, color: 'hsl(267, 94%, 52%)' },
+      ],
       url: {
         github: 'https://github.com/AmanySirajAl-Din/Wasfity-RecipeMaker',
         live: '',

@@ -13,7 +13,7 @@ const Projects = () => {
         const { img, title, url, tags, subtitle } = project
         return (
           <article className='projects__card' key={i}>
-            {/* <!-- Insert your image in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
+            {/* <!-- Image should be in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
             <img
               src={img}
               alt={title}
@@ -45,9 +45,15 @@ const Projects = () => {
                   <div className='projects__tags'>
                     {tags.map((tag, i) => {
                       return (
-                        <span key={i} className='projects__tag'>
-                          {tag}
-                        </span>
+                        <div
+                          key={i}
+                          title={tag.title}
+                          className='projects__tag'
+                          color={tag.color}
+                          style={{ color: tag.color }}
+                        >
+                          <tag.icon />
+                        </div>
                       )
                     })}
                   </div>
