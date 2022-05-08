@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Dispatch, SetStateAction, useState } from 'react'
 import {
   RiMoonLine,
@@ -67,7 +68,12 @@ const Header = ({ dark, setDark }: Props) => {
         <div className='profile__data'>
           <div className='profile__border'>
             <div className='profile__perfil'>
-              <img src='/me.png' alt='picture of me' />
+              <Image
+                width='120px'
+                height='120px'
+                src='/me.png'
+                alt='picture of me'
+              />
             </div>
           </div>
 
