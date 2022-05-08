@@ -4,13 +4,11 @@ import {
   SiBootstrap,
   SiFirebase,
   SiNextdotjs,
-  SiNpm,
   SiReact,
   SiRedux,
   SiTailwindcss,
   SiThemoviedatabase,
   SiTypescript,
-  SiYarn,
 } from 'react-icons/si'
 
 export default {
@@ -31,17 +29,17 @@ export default {
     ],
     experience: [
       {
-        num: 7,
-        text1: 'Years of',
+        num: 1,
+        text1: 'Year of',
         text2: 'work',
       },
       {
-        num: 124,
+        num: 20,
         text1: 'Completed',
         text2: 'projects',
       },
       {
-        num: 96,
+        num: 6,
         text1: 'Satisfied',
         text2: 'customers',
       },

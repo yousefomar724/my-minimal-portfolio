@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { RiLink, RiArrowRightUpFill } from 'react-icons/ri'
 import data from '../data'
 
@@ -14,12 +15,7 @@ const Projects = () => {
         return (
           <article className='projects__card' key={i}>
             {/* <!-- Image should be in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
-            <img
-              src={img}
-              alt={title}
-              title={title}
-              className='projects__img'
-            />
+            <Image src={img} alt={title} title={title} layout='fill' />
 
             <div className='projects__modal'>
               <div>

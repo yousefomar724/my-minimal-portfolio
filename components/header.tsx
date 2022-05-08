@@ -80,6 +80,7 @@ const Header = ({ dark, setDark }: Props) => {
                 <a
                   href={socialLink.url}
                   target='_blank'
+                  rel='noreferrer'
                   className='profile__social-link'
                   key={i}
                 >
@@ -112,6 +113,7 @@ const Header = ({ dark, setDark }: Props) => {
             <a
               href='https://api.whatsapp.com/send?phone=+201100124479&text=Hello, more information!'
               target='_blank'
+              rel='noreferrer'
               className='button button__small button__gray'
             >
               <RiWhatsappLine />
@@ -119,6 +121,7 @@ const Header = ({ dark, setDark }: Props) => {
             <a
               href='https://m.me/yousefomar724'
               target='_blank'
+              rel='noreferrer'
               className='button button__small button__gray'
             >
               <RiMessengerLine />
