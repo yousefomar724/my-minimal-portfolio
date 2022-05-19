@@ -187,7 +187,7 @@ body.dark-theme {
   text-align: center;
 }
 
-.profile__perfil {
+.profile__img {
   width: 100px;
   height: 100px;
   background: linear-gradient(
@@ -202,7 +202,7 @@ body.dark-theme {
   justify-content: center;
 }
 
-.profile__perfil img {
+.profile__img img {
   width: 120px;
   transform: scale(1.1) rotate(-6deg) translate(0px, 9px);
 }
@@ -315,7 +315,7 @@ body.dark-theme {
   background-color: var(--text-color-light);
 }
 
-/*=============== FILTERS TABS===============*/
+/*=============== FILTERS TABS ===============*/
 .filters__content {
   margin: 2rem 0 2.5rem;
   background-color: var(--text-color-lighten);
@@ -448,11 +448,6 @@ body.dark-theme {
   column-gap: 0.5rem;
 }
 
-.skills__data i {
-  font-size: 1rem;
-  color: var(--first-color);
-}
-
 .skills__name {
   font-size: var(--normal-font-size);
   font-weight: 500;
@@ -461,15 +456,6 @@ body.dark-theme {
 
 .skills__level {
   font-size: var(--smaller-font-size);
-}
-
-/* Hide and show projects & skills */
-.filters [data-content] {
-  display: none;
-}
-
-.filters__active[data-content] {
-  display: grid;
 }
 
 /* Activate button filter */
@@ -573,7 +559,7 @@ body.dark-theme {
     height: 135px;
     margin-bottom: 1rem;
   }
-  .profile__perfil {
+  .profile__img {
     width: 120px;
     height: 120px;
   }

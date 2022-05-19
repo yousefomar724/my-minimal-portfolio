@@ -10,6 +10,9 @@ import {
   SiThemoviedatabase,
   SiTypescript,
 } from 'react-icons/si'
+import Posts from '../components/posts'
+import Projects from '../components/projects'
+import Skills from '../components/skills'
 
 export default {
   header: {
@@ -78,7 +81,11 @@ export default {
     {
       text: 'Skills',
     },
+    {
+      text: 'Posts',
+    },
   ],
+  sections: [Projects, Skills, Posts],
   projects: [
     {
       img: '/project2extra.png',
