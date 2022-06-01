@@ -2,13 +2,12 @@ import { RiCodepenLine, RiLinkedinLine, RiGithubLine } from 'react-icons/ri'
 import {
   SiAuth0,
   SiBootstrap,
-  SiFirebase,
+  SiChakraui,
   SiNextdotjs,
-  SiReact,
-  SiRedux,
   SiTailwindcss,
   SiThemoviedatabase,
   SiTypescript,
+  SiVite,
 } from 'react-icons/si'
 import Posts from '../components/posts'
 import Projects from '../components/projects'
@@ -88,7 +87,7 @@ export default {
   sections: [Projects, Skills, Posts],
   projects: [
     {
-      img: '/project2extra.png',
+      img: '/disney.png',
       title: 'Disney+ clone',
       subtitle: 'web',
       tags: [
@@ -116,18 +115,40 @@ export default {
       },
     },
     {
-      img: '/project2.png',
-      title: 'Recipe Maker',
+      img: '/historyquiz.png',
+      title: 'History Quick Quiz',
       subtitle: 'web',
       tags: [
-        { title: 'React', icon: SiReact, color: 'hsl(205, 70%, 60%)' },
-        { title: 'Redux', icon: SiRedux, color: 'hsl(263, 46%, 66%)' },
-        { title: 'Firebase', icon: SiFirebase, color: 'hsl(48, 90%, 57%)' },
+        { title: 'Next.js', icon: SiNextdotjs, color: 'hsl(0, 0%, 100%)' },
+        {
+          title: 'TypeScript',
+          icon: SiTypescript,
+          color: 'hsl(214, 55%, 51%)',
+        },
+        { title: 'Vite', icon: SiVite, color: '#646CFF' },
+        { title: 'Chakra UI', icon: SiChakraui, color: '#319795' },
+      ],
+      url: {
+        github: 'https://github.com/yousefomar724/quiz-app',
+        live: 'https://quiz-app-sigma-blond.vercel.app/',
+      },
+    },
+    {
+      img: '/rick-morty-universe.png',
+      title: 'Rick & Morty Universe',
+      subtitle: 'web',
+      tags: [
+        { title: 'Next.js', icon: SiNextdotjs, color: 'hsl(0, 0%, 100%)' },
+        {
+          title: 'TypeScript',
+          icon: SiTypescript,
+          color: 'hsl(214, 55%, 51%)',
+        },
         { title: 'Bootstrap', icon: SiBootstrap, color: 'hsl(267, 94%, 52%)' },
       ],
       url: {
-        github: 'https://github.com/AmanySirajAl-Din/Wasfity-RecipeMaker',
-        live: '',
+        github: 'https://github.com/yousefomar724/rick-morty-universe',
+        live: 'https://rick-morty-universe.vercel.app/',
       },
     },
   ],

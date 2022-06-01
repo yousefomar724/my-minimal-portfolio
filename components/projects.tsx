@@ -24,7 +24,9 @@ const Projects = () => {
                 <div className='projects__content'>
                   <div className='projects__content__links'>
                     <a
+                      target='_blank'
                       href={url.github}
+                      rel='noreferrer'
                       className='projects__button button button__small'
                       title='github repo'
                     >
@@ -32,6 +34,8 @@ const Projects = () => {
                     </a>
                     <a
                       href={url.live}
+                      target='_blank'
+                      rel='noreferrer'
                       className='projects__button button button__small'
                       title='live preview'
                     >
