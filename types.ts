@@ -6,6 +6,8 @@ export interface Author {
 }
 
 export interface FeaturedImage {
+  height: string | number | undefined
+  width: string | number | undefined
   url: string
 }
 
