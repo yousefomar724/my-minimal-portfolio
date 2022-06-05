@@ -1,10 +1,17 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Content, Footer, FavIcon, Header } from '../components'
-import { getPosts } from '../services'
-import { Edge } from '../types'
+import { getHomePosts } from '../services'
+import { Post } from '../types'
 
-const Home: NextPage<{ posts: Edge[] }> = (props) => {
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = (await getHomePosts()) || []
+  return {
+    props: { posts },
+  }
+}
+
+const Home: NextPage<{ posts: Post[] }> = (props) => {
   return (
     <div>
       <Head>
@@ -19,10 +26,3 @@ const Home: NextPage<{ posts: Edge[] }> = (props) => {
   )
 }
 export default Home
-
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = (await getPosts()) || []
-  return {
-    props: { posts },
-  }
-}

@@ -247,6 +247,12 @@ body.dark-theme {
 .profile__social-link:hover {
   color: var(--first-color);
 }
+.post__social-link {
+  color: var(--text-color);
+}
+.post__social-link:hover {
+  color: var(--first-color);
+}
 
 .profile__info {
   grid-template-columns: repeat(3, max-content);
@@ -464,7 +470,7 @@ body.dark-theme {
 /*=============== POSTS ===============*/
 .posts {
   display: flex;
-  width: min(100% - 2rem, 500px);
+  width: min(100% - 2rem, 600px);
   margin-inline: auto;
   gap: 1rem;
   justify-content: center;
@@ -498,6 +504,13 @@ body.dark-theme {
 .footer__copy {
   display: block;
   margin: 2.5rem 0 2rem;
+  text-align: center;
+  font-size: var(--smaller-font-size);
+  color: var(--text-color-light);
+}
+.post__footer {
+  display: block;
+  margin: 0.5rem 0 2rem;
   text-align: center;
   font-size: var(--smaller-font-size);
   color: var(--text-color-light);

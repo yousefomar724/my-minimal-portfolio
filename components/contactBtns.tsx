@@ -3,7 +3,7 @@ import { RiDownloadLine, RiMessengerLine, RiWhatsappLine } from 'react-icons/ri'
 const ContactBtns = () => {
   return (
     <div className='profile__buttons'>
-      <a download='true' href='/YousefOmar.pdf' className='button'>
+      <a download='Yousef Omar' href='/YousefOmar.pdf' className='button'>
         Download CV <RiDownloadLine />
       </a>
 
