@@ -47,6 +47,7 @@ export interface Post {
   featuredImage: FeaturedImage
   categories: Category[]
   updatedAt?: string
+  content: { html: string }
 }
 
 export interface Author {

@@ -81,6 +81,44 @@ img {
   object-position: center;
 }
 
+pre {
+  background-color: var(--first-color);
+  color: var(--title-color);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  box-shadow: 0 8px 24px hsla(var(--hue), var(--sat), var(--lig), 0.25);
+}
+
+code {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  background-color: var(--text-color-lighten);
+  color: var(--first-color);
+}
+code::before {
+  content: '`';
+}
+code::after {
+  content: '`';
+}
+
+pre code {
+  padding: 0;
+  border-radius: 0;
+  background-color: unset;
+  color: var(--body-color);
+}
+pre code::before {
+  content: none;
+}
+pre code::after {
+  content: none;
+}
+
 /*=============== THEME ===============*/
 .change-theme {
   position: absolute;

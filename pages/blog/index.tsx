@@ -2,9 +2,6 @@ import moment from 'moment'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
-import { Footer } from '../../components'
-import ColorThemesBtn from '../../components/colorThemesBtn'
-import LightDarkBtn from '../../components/lightDarkBtn'
 import { getAllPosts, GRAPHCMS_ENDPOINT } from '../../services'
 import { DataProps, Post } from '../../types'
 import styles from './blog.module.css'
@@ -12,6 +9,7 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import request from 'graphql-request'
 import Head from 'next/head'
+import { Topbar } from '../../components'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = (await getAllPosts()) || []
@@ -86,8 +84,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
         <title>The Blog</title>
       </Head>
       <header className='profile container'>
-        <LightDarkBtn />
-        <ColorThemesBtn />
+        <Topbar />
       </header>
       <div className={blog}>
         <div className={blog__container}>
@@ -159,7 +156,11 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
         </div>
         {error && <div>Failed to load</div>}
       </div>
-      <Footer />
+      <footer className='footer container'>
+        <span className='footer__copy'>
+          &#169; Yousef Omar. All rigths reserved
+        </span>
+      </footer>
     </div>
   )
 }

@@ -65,7 +65,7 @@ export const getPost = async (slug: string) => {
       posts(where: { slug: $slug }) {
         title
         content {
-          markdown
+          html
         }
         createdAt
         excerpt
@@ -78,6 +78,7 @@ export const getPost = async (slug: string) => {
           photo {
             url
           }
+          position
         }
         featuredImage {
           url
