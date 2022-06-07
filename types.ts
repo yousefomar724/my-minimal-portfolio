@@ -51,6 +51,7 @@ export interface Post {
 }
 
 export interface Author {
+  position: string
   id: string
   name: string
   bio: string

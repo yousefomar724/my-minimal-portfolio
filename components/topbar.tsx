@@ -33,17 +33,27 @@ const Topbar = () => {
 
       {/* Colors Theme Btns */}
       <div className='color-btns'>
-        {data.header.colors.map((palette, i) => {
+        {data.header.colors.map((palette, index) => {
           const { color, hue, sat, lig } = palette
+          useEffect(() => {
+            setValue((prevValue) => {
+              if (
+                document.documentElement.style.getPropertyValue('--hue') === hue
+              ) {
+                return index
+              }
+              return prevValue
+            })
+          })
           return (
             <div
-              onClick={() => handleColors(hue, sat, lig, i)}
+              onClick={() => handleColors(hue, sat, lig, index)}
               title={color}
-              className={`color-btn ${value === i && 'color-btn-active'}`}
+              className={`color-btn ${value === index && 'color-btn-active'}`}
               style={{
                 backgroundColor: `hsl(${hue}, ${sat}, ${lig})`,
               }}
-              key={i}
+              key={index}
             />
           )
         })}

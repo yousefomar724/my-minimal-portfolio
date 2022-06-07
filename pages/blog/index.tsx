@@ -94,7 +94,9 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               Go Back Home
             </a>
           </Link>
-          <h1 className={blog__title}>The Blog</h1>
+          <h1 className={blog__title} style={{ margin: '1rem 0 2rem' }}>
+            The Blog
+          </h1>
           <input
             type='text'
             placeholder='Search blog posts'
