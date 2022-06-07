@@ -9,8 +9,8 @@ import { GetStaticPaths } from 'next'
 import Image from 'next/image'
 import Head from 'next/head'
 import PostFooter from '../../components/postFooter'
-import Topbar from '../../components/topbar'
 import moment from 'moment'
+import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 
 export const getStaticProps = async ({ params }: { params: Params }) => {
   const post = await getPost(params.slug)
@@ -80,7 +80,7 @@ const PostDetails = ({ post }: Props) => {
         <title>{title}</title>
       </Head>
       <header className='profile container'>
-        <Topbar />
+        <TopbarWithNoSSR />
       </header>
       <div className={blog}>
         <div className={blog__container}>

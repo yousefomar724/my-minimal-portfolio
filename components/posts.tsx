@@ -20,8 +20,8 @@ const Posts = ({ posts }: { posts: PostProps[] }) => {
         const { slug, categories, title, createdAt, excerpt } = post
         return (
           // {/* Single Post  */}
-          <Link href={`/blog/${slug}`}>
-            <div className={blog__post} key={slug}>
+          <Link href={`/blog/${slug}`} key={slug}>
+            <div className={blog__post}>
               <small className={blog__createdAt}>
                 {moment(createdAt).format('ddd MMMM DD YYYY')}
               </small>

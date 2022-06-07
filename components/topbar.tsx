@@ -4,7 +4,9 @@ import data from '../data'
 
 const Topbar = () => {
   const [value, setValue] = useState(0)
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(
+    document.body.classList.contains('dark-theme')
+  )
 
   useEffect(() => {
     setDark(dark)

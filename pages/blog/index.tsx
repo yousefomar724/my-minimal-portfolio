@@ -9,7 +9,7 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import request from 'graphql-request'
 import Head from 'next/head'
-import { Topbar } from '../../components'
+import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = (await getAllPosts()) || []
@@ -84,7 +84,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
         <title>The Blog</title>
       </Head>
       <header className='profile container'>
-        <Topbar />
+        <TopbarWithNoSSR />
       </header>
       <div className={blog}>
         <div className={blog__container}>

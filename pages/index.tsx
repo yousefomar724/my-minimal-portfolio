@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
-import { Topbar, Profile, FavIcon, Content } from '../components'
+import { Profile, FavIcon, Content } from '../components'
+import TopbarWithNoSSR from '../components/topbarWithNoSSR'
 import { getHomePosts } from '../services'
 import { Post } from '../types'
 
@@ -20,7 +21,7 @@ const Home: NextPage<{ posts: Post[] }> = (props) => {
         <FavIcon />
       </Head>
       <header className='profile container'>
-        <Topbar />
+        <TopbarWithNoSSR />
         <Profile />
       </header>
       <Content posts={props.posts} />
