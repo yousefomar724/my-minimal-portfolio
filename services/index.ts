@@ -53,10 +53,33 @@ export const getHomePosts = async () => {
           slug
         }
       }
+      projects(first: 4, orderBy: updatedAt_ASC) {
+        githubUrl
+        image {
+          height
+          url
+          width
+        }
+        previewUrl
+        size
+        slug
+        title
+        technologies {
+          name
+          url
+          image {
+            url
+            width
+            height
+          }
+        }
+        type
+        updatedAt
+      }
     }
   `
   const results = await request(GRAPHCMS_ENDPOINT, query)
-  return results.posts
+  return results
 }
 
 export const getPost = async (slug: string) => {

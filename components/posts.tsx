@@ -1,10 +1,16 @@
 import { RiArrowRightUpLine } from 'react-icons/ri'
 import Link from 'next/link'
-import { Post as PostProps } from '../types'
+import { Post, Post as PostProps, Project } from '../types'
 import styles from '../pages/blog/blog.module.css'
 import moment from 'moment'
 
-const Posts = ({ posts }: { posts: PostProps[] }) => {
+interface Props {
+  data: {
+    posts: Post[]
+    projects: Project[]
+  }
+}
+const Posts = ({ data }: Props) => {
   const {
     blog__post,
     blog__createdAt,
@@ -16,7 +22,7 @@ const Posts = ({ posts }: { posts: PostProps[] }) => {
   } = styles
   return (
     <div className='posts container'>
-      {posts.slice(0, 4).map((post) => {
+      {data.posts.slice(0, 4).map((post) => {
         const { slug, categories, title, createdAt, excerpt } = post
         return (
           // {/* Single Post  */}

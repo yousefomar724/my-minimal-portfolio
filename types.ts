@@ -50,6 +50,24 @@ export interface Post {
   content: { html: string }
 }
 
+export interface Image {
+  height: number
+  url: string
+  width: number
+}
+
+export interface Project {
+  githubUrl: string
+  image: Image
+  previewUrl: string
+  size: string
+  slug: string
+  title: string
+  type: string
+  updatedAt: Date
+  technologies: { name: string; url: string; image: Image }[]
+}
+
 export interface Author {
   position: string
   id: string

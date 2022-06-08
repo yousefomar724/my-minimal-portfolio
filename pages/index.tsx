@@ -3,16 +3,16 @@ import Head from 'next/head'
 import { Profile, FavIcon, Content } from '../components'
 import TopbarWithNoSSR from '../components/topbarWithNoSSR'
 import { getHomePosts } from '../services'
-import { Post } from '../types'
+import { Post, Project } from '../types'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = (await getHomePosts()) || []
+  const { posts, projects } = (await getHomePosts()) || []
   return {
-    props: { posts },
+    props: { posts, projects },
   }
 }
 
-const Home: NextPage<{ posts: Post[] }> = (props) => {
+const Home: NextPage<{ posts: Post[]; projects: Project[] }> = (props) => {
   return (
     <div>
       <Head>
@@ -24,7 +24,7 @@ const Home: NextPage<{ posts: Post[] }> = (props) => {
         <TopbarWithNoSSR />
         <Profile />
       </header>
-      <Content posts={props.posts} />
+      <Content data={props} />
       <footer className='footer container'>
         <span className='footer__copy'>
           &#169; Yousef Omar. All rigths reserved

@@ -401,6 +401,11 @@ body.dark-theme {
   min-height: 250px;
   width: 100%;
   height: 100%;
+  transition: 0.3s;
+  border: 1px solid var(--first-color);
+}
+.projects__card:hover {
+  box-shadow: 0 8px 24px hsla(var(--hue), var(--sat), var(--lig), 0.25);
 }
 
 .projects__modal {
@@ -465,6 +470,17 @@ body.dark-theme {
 
 .dark-theme .projects__tag {
   color: #fff;
+}
+
+.projects__btn {
+  grid-column: span 2;
+  min-width: 600px;
+  justify-self: center;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  font-size: var(--small-font-size);
 }
 
 /*=============== SKILLS ===============*/

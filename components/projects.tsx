@@ -1,31 +1,43 @@
 import Image from 'next/image'
-import { RiLink, RiArrowRightUpFill } from 'react-icons/ri'
-import data from '../data'
+import Link from 'next/link'
+import { RiLink, RiArrowRightUpFill, RiArrowRightUpLine } from 'react-icons/ri'
+import { Post, Project } from '../types'
 
-const Projects = () => {
-  const { projects } = data
+interface Props {
+  data: { posts: Post[]; projects: Project[] }
+}
+
+const Projects = ({ data }: Props) => {
   return (
     <div
       className='projects__content grid filters__active'
       data-content
       id='projects'
     >
-      {projects.map((project, i) => {
-        const { img, title, url, tags, subtitle } = project
+      {data.projects.map((project, i) => {
+        const {
+          image,
+          title,
+          githubUrl,
+          previewUrl,
+          type,
+          technologies,
+          size,
+        } = project
         return (
           <article className='projects__card' key={i}>
             {/* <!-- Image should be in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
-            <Image src={img} alt={title} title={title} layout='fill' />
+            <Image src={image.url} alt={title} title={title} layout='fill' />
 
             <div className='projects__modal'>
               <div>
-                <span className='projects__subtitle'>{subtitle}</span>
+                <span className='projects__subtitle'>{type}</span>
                 <h3 className='projects__title'>{title}</h3>
                 <div className='projects__content'>
                   <div className='projects__content__links'>
                     <a
                       target='_blank'
-                      href={url.github}
+                      href={githubUrl}
                       rel='noreferrer'
                       className='projects__button button button__small'
                       title='github repo'
@@ -33,7 +45,7 @@ const Projects = () => {
                       <RiLink />
                     </a>
                     <a
-                      href={url.live}
+                      href={previewUrl}
                       target='_blank'
                       rel='noreferrer'
                       className='projects__button button button__small'
@@ -43,16 +55,22 @@ const Projects = () => {
                     </a>
                   </div>
                   <div className='projects__tags'>
-                    {tags.map((tag, i) => {
+                    {technologies.map((tech, i) => {
                       return (
                         <div
                           key={i}
-                          title={tag.title}
+                          title={tech.name}
                           className='projects__tag'
-                          color={tag.color}
-                          style={{ color: tag.color }}
                         >
-                          <tag.icon />
+                          <Image
+                            width={30}
+                            height={30}
+                            objectFit='cover'
+                            objectPosition='center'
+                            src={tech.image.url}
+                            alt={tech.name}
+                            style={{ borderRadius: '10px' }}
+                          />
                         </div>
                       )
                     })}
@@ -63,6 +81,11 @@ const Projects = () => {
           </article>
         )
       })}
+      <Link href='/projects'>
+        <a className='button projects__btn'>
+          View all <RiArrowRightUpLine />
+        </a>
+      </Link>
     </div>
   )
 }

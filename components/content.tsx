@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import data from '../data'
-import { Post } from '../types'
+import { Post, Project } from '../types'
 
-const Content = ({ posts }: { posts: Post[] }) => {
+interface Props {
+  data: { posts: Post[]; projects: Project[] }
+}
+
+const Content = (props: Props) => {
   const [value, setValue] = useState(0)
   return (
     <main className='container'>
@@ -26,7 +30,7 @@ const Content = ({ posts }: { posts: Post[] }) => {
       <div className='filters__sections'>
         {data.sections.map((SelectedSection, index) => (
           <div key={index}>
-            {value === index && <SelectedSection posts={posts} />}
+            {value === index && <SelectedSection data={props.data} />}
           </div>
         ))}
       </div>
