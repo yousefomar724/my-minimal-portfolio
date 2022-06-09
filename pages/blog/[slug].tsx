@@ -8,7 +8,7 @@ import styles from './blog.module.css'
 import { GetStaticPaths } from 'next'
 import Image from 'next/image'
 import Head from 'next/head'
-import PostFooter from '../../components/postFooter'
+import Footer from '../../components/footer'
 import moment from 'moment'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 
@@ -157,7 +157,7 @@ const PostDetails = ({ post }: Props) => {
           </div>
         </div>
       </div>
-      <PostFooter />
+      <Footer />
     </div>
   )
 }

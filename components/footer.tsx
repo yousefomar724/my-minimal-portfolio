@@ -1,6 +1,6 @@
 import data from '../data'
 
-const PostFooter = () => {
+const Footer = () => {
   return (
     <footer className='footer container'>
       <ul className='profile__social'>
@@ -25,4 +25,4 @@ const PostFooter = () => {
   )
 }
 
-export default PostFooter
+export default Footer

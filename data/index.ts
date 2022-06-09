@@ -36,7 +36,7 @@ export default {
         text2: 'work',
       },
       {
-        num: 20,
+        num: '20+',
         text1: 'Completed',
         text2: 'projects',
       },

@@ -24,6 +24,8 @@
   --body-color: hsl(var(--hue), 100%, 99%);
   --container-color: #fff;
 
+  --main-shadow: 0 8px 24px hsla(var(--hue), var(--sat), var(--lig), 0.25);
+
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: 'Poppins', sans-serif;
@@ -337,7 +339,7 @@ body.dark-theme {
   padding: 1.15rem 1.5rem;
   border-radius: 0.5rem;
   transition: 0.3s;
-  box-shadow: 0 8px 24px hsla(var(--hue), var(--sat), var(--lig), 0.25);
+  box-shadow: var(--main-shadow);
 }
 
 .button i {

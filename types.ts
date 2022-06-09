@@ -65,6 +65,7 @@ export interface Project {
   title: string
   type: string
   updatedAt: Date
+  description: string
   technologies: { name: string; url: string; image: Image }[]
 }
 

@@ -1,6 +1,6 @@
 import { RiArrowRightUpLine } from 'react-icons/ri'
 import Link from 'next/link'
-import { Post, Post as PostProps, Project } from '../types'
+import { Post, Project } from '../types'
 import styles from '../pages/blog/blog.module.css'
 import moment from 'moment'
 

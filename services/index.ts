@@ -39,6 +39,46 @@ export const getAllPosts = async () => {
   return results
 }
 
+export const getAllProjects = async () => {
+  const query = gql`
+    query allprojects {
+      projectsConnection(orderBy: updatedAt_ASC, first: 5, skip: 0) {
+        edges {
+          node {
+            description
+            id
+            image {
+              height
+              url
+            }
+            previewUrl
+            slug
+            size
+            technologies {
+              image {
+                height
+                url
+                width
+              }
+              url
+              name
+            }
+            title
+            type
+          }
+        }
+        pageInfo {
+          hasPreviousPage
+          hasNextPage
+          pageSize
+        }
+      }
+    }
+  `
+  const results = await request(GRAPHCMS_ENDPOINT, query)
+  return results
+}
+
 export const getHomePosts = async () => {
   const query = gql`
     query homePosts {
@@ -117,6 +157,41 @@ export const getPost = async (slug: string) => {
   const results = await request(GRAPHCMS_ENDPOINT, query, slugName)
   return results.posts[0]
 }
+export const getPostsByCategory = async (slug: string) => {
+  const query = gql`
+    query getPostsByCategory($slug: String) {
+      posts(where: { categories_some: { slug: $slug } }) {
+        title
+        content {
+          html
+        }
+        createdAt
+        excerpt
+        categories {
+          name
+          slug
+        }
+        author {
+          name
+          photo {
+            url
+          }
+          position
+        }
+        featuredImage {
+          url
+          width
+          height
+        }
+        slug
+        updatedAt
+      }
+    }
+  `
+  const slugName = { slug }
+  const results = await request(GRAPHCMS_ENDPOINT, query, slugName)
+  return results.posts
+}
 
 export const getPostsSlugs = async () => {
   const query = gql`
@@ -128,4 +203,16 @@ export const getPostsSlugs = async () => {
   `
   const results = await request(GRAPHCMS_ENDPOINT, query)
   return results.posts
+}
+
+export const getCategoriesSlugs = async () => {
+  const query = gql`
+    {
+      categories {
+        slug
+      }
+    }
+  `
+  const results = await request(GRAPHCMS_ENDPOINT, query)
+  return results.categories
 }

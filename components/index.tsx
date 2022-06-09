@@ -1,6 +1,6 @@
 export { default as Content } from './content'
 export { default as FavIcon } from './favIcon'
-export { default as PostFooter } from './postFooter'
+export { default as Footer } from './footer'
 export { default as Projects } from './projects'
 export { default as Profile } from './profile'
 export { default as Skills } from './skills'
