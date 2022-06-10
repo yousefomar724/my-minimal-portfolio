@@ -1,18 +1,10 @@
 import moment from 'moment'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { GetStaticPaths, NextPage } from 'next'
 import Link from 'next/link'
-import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
-import {
-  getAllPosts,
-  getCategoriesSlugs,
-  getPostsByCategory,
-  GRAPHCMS_ENDPOINT,
-} from '../../services'
-import { DataProps, Post } from '../../types'
+import { RiArrowLeftLine } from 'react-icons/ri'
+import { getCategoriesSlugs, getPostsByCategory } from '../../services'
+import { Post } from '../../types'
 import styles from '../blog/blog.module.css'
-import useSWR from 'swr'
-import { useState } from 'react'
-import request from 'graphql-request'
 import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import { useRouter } from 'next/router'
@@ -30,23 +22,21 @@ export const getStaticProps = async ({ params }: { params: Params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categoriesSlugs = await getCategoriesSlugs()
-  const slugPaths = categoriesSlugs.map((slug: { slug: string }) => ({
+  const slugPaths = categoriesSlugs.map((slug: { slug: any }) => ({
     params: { slug: slug.slug },
   }))
 
   return {
     paths: slugPaths,
-    fallback: true,
+    fallback: false,
   }
 }
 
 const Category: NextPage<{ posts: Post[] }> = ({ posts }) => {
-  console.log(posts)
   const {
     blog,
     blog__container,
     blog__title,
-    blog__btns,
     blog__content,
     blog__post,
     blog__createdAt,

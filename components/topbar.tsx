@@ -13,6 +13,19 @@ const Topbar = () => {
     document.body.classList.toggle('dark-theme', dark)
   }, [dark])
 
+  useEffect(() => {
+    data.header.colors.map((color, index) => {
+      setValue((prevValue) => {
+        if (
+          document.documentElement.style.getPropertyValue('--hue') === color.hue
+        ) {
+          return index
+        }
+        return prevValue
+      })
+    })
+  }, [])
+
   const handleColors = (
     hue: string,
     sat: string,
@@ -37,16 +50,6 @@ const Topbar = () => {
       <div className='color-btns'>
         {data.header.colors.map((palette, index) => {
           const { color, hue, sat, lig } = palette
-          useEffect(() => {
-            setValue((prevValue) => {
-              if (
-                document.documentElement.style.getPropertyValue('--hue') === hue
-              ) {
-                return index
-              }
-              return prevValue
-            })
-          })
           return (
             <div
               onClick={() => handleColors(hue, sat, lig, index)}

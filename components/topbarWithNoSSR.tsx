@@ -4,4 +4,6 @@ const DynamicComponentWithNoSSR = dynamic(() => import('./topbar'), {
   ssr: false,
 })
 
-export default () => <DynamicComponentWithNoSSR />
+export default function DynamicTopbar() {
+  return <DynamicComponentWithNoSSR />
+}

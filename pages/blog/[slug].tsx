@@ -29,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: slugPaths,
-    fallback: true,
+    fallback: false,
   }
 }
 
@@ -129,6 +129,7 @@ const PostDetails = ({ post }: Props) => {
               </div>
               <Image
                 src={author.photo.url}
+                alt={`photo of ${author.name}`}
                 width={50}
                 height={50}
                 objectFit='cover'
@@ -141,6 +142,7 @@ const PostDetails = ({ post }: Props) => {
             <Image
               width={600}
               height={300}
+              alt={`project : ${title}`}
               layout='responsive'
               objectFit='cover'
               objectPosition='center'
