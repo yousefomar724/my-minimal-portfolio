@@ -33,7 +33,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
       GRAPHCMS_ENDPOINT,
       `
     query allprojects($skip: Int) {
-      projectsConnection(orderBy: updatedAt_ASC, first: 5, skip: $skip) {
+      projectsConnection(orderBy: updatedAt_DESC, first: 5, skip: $skip) {
         edges {
           node {
             description

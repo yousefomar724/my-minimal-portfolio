@@ -48,30 +48,17 @@ const PostDetails = ({ post }: Props) => {
     blog__btns,
     blog__img,
     blog__heading,
-    blog__post,
     blog__createdAt,
-    blog__post__content,
-    blog__post__title,
     blog__categories,
     blog__category,
-    blog__excerpt,
     backhome__btn,
     blog__author,
     blog__metadata,
     blog__author__name,
+    blog__lastupdated,
   } = styles
 
-  const {
-    title,
-    excerpt,
-    slug,
-    categories,
-    author,
-    createdAt,
-    updatedAt,
-    featuredImage,
-    content,
-  } = post
+  const { title, categories, author, createdAt, featuredImage, content } = post
 
   if (router.isFallback) return <h1>Loading...</h1>
   return (
@@ -113,20 +100,11 @@ const PostDetails = ({ post }: Props) => {
             </span>
           </div>
           <div className={blog__metadata}>
-            <small className={blog__createdAt}>
+            <small className={blog__lastupdated}>
+              <small> last updated</small>
               {moment(createdAt).format('ddd MMMM DD YYYY')}
             </small>
             <div className={blog__author}>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <span className={blog__author__name}>{author.name}</span>
-                <small style={{ fontSize: '.7rem' }}>{author.position}</small>
-              </div>
               <Image
                 src={author.photo.url}
                 alt={`photo of ${author.name}`}
@@ -136,6 +114,15 @@ const PostDetails = ({ post }: Props) => {
                 objectPosition='center'
                 style={{ borderRadius: '50%' }}
               />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <span className={blog__author__name}>{author.name}</span>
+                <small style={{ fontSize: '.7rem' }}>{author.position}</small>
+              </div>
             </div>
           </div>
           <div className={blog__img}>

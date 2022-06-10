@@ -93,7 +93,7 @@ export const getHomePosts = async () => {
           slug
         }
       }
-      projects(first: 4, orderBy: updatedAt_ASC) {
+      projects(first: 4, orderBy: updatedAt_DESC) {
         githubUrl
         image {
           height
