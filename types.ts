@@ -47,7 +47,7 @@ export interface Post {
   featuredImage: FeaturedImage
   categories: Category[]
   updatedAt?: string
-  content: { html: string }
+  content: { html: string; raw?: RawContent }
 }
 
 export interface Image {
@@ -90,4 +90,45 @@ export interface FeaturedImage {
   url: string
   width: number
   height: number
+}
+
+export interface RawContent {
+  children: RawContentChild[]
+}
+
+export interface RawContentChild {
+  type: Type
+  children: PurpleChild[]
+  src?: string
+  title?: string
+  width?: number
+  handle?: string
+  height?: number
+  mimeType?: string
+}
+
+export interface PurpleChild {
+  text?: string
+  code?: boolean
+  id?: string
+  rel?: string
+  href?: string
+  type?: string
+  children?: FluffyChild[]
+  openInNewTab?: boolean
+}
+
+export interface FluffyChild {
+  text: string
+  code?: boolean
+}
+
+export enum Type {
+  CodeBlock = 'code-block',
+  HeadingOne = 'heading-one',
+  HeadingTwo = 'heading-two',
+  HeadingThree = 'heading-three',
+  HeadingFour = 'heading-four',
+  Image = 'image',
+  Paragraph = 'paragraph',
 }

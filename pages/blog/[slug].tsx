@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
 import { getPost, getPostsSlugs } from '../../services'
-import { Post } from '../../types'
+import { Post, Type } from '../../types'
 import styles from './blog.module.css'
 import { GetStaticPaths } from 'next'
 import Image from 'next/image'
@@ -11,6 +11,108 @@ import Head from 'next/head'
 import Footer from '../../components/footer'
 import moment from 'moment'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
+import React, { ReactNode } from 'react'
+import Highlight from 'react-highlight'
+
+const getContentFragment = (
+  index: number,
+  text: string | ReactNode,
+  obj?: any,
+  type?: Type
+) => {
+  let modifiedText: any = text
+
+  if (obj) {
+    if (obj.bold) {
+      modifiedText = <b key={index}>{text}</b>
+    }
+
+    if (obj.italic) {
+      modifiedText = <em key={index}>{text}</em>
+    }
+
+    if (obj.underline) {
+      modifiedText = <u key={index}>{text}</u>
+    }
+    if (obj.code) {
+      modifiedText = <code key={index}>{text}</code>
+    }
+    if (obj.type === 'link') {
+      modifiedText = (
+        <a key={index} href={obj?.href} target='_blank' rel={obj?.rel}>
+          {obj?.children?.map((item: any, i: number) => {
+            if (item?.code) {
+              return <code key={index}>{item.text}</code>
+            }
+            if (item.type === 'link') {
+              return (
+                <React.Fragment key={i}>{item.children[0].text}</React.Fragment>
+              )
+            }
+            return <React.Fragment key={i}>{item.text}</React.Fragment>
+          })}
+        </a>
+      )
+    }
+  }
+
+  switch (type) {
+    case 'heading-one':
+      return (
+        <h1 key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </h1>
+      )
+    case 'heading-two':
+      return (
+        <h2 key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </h2>
+      )
+    case 'heading-three':
+      return (
+        <h3 key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </h3>
+      )
+    case 'paragraph':
+      return (
+        <p key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </p>
+      )
+    case 'heading-four':
+      return (
+        <h4 key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </h4>
+      )
+    case 'code-block':
+      return <Highlight key={index}>{modifiedText}</Highlight>
+    case 'image':
+      return (
+        <img
+          key={index}
+          alt={obj.title}
+          height={obj.height}
+          width={obj.width}
+          src={obj.src}
+        />
+      )
+    default:
+      return modifiedText
+  }
+}
 
 export const getStaticProps = async ({ params }: { params: Params }) => {
   const post = await getPost(params.slug)
@@ -48,7 +150,6 @@ const PostDetails = ({ post }: Props) => {
     blog__btns,
     blog__img,
     blog__heading,
-    blog__createdAt,
     blog__categories,
     blog__category,
     backhome__btn,
@@ -138,11 +239,19 @@ const PostDetails = ({ post }: Props) => {
             />
           </div>
           <div className={blog__content}>
-            <div
+            {/* {JSON.stringify(content.raw, null, 2)} */}
+            {content?.raw?.children.map((typeObj, index) => {
+              const children = typeObj.children.map((item, itemindex) =>
+                getContentFragment(itemindex, item.text, item)
+              )
+
+              return getContentFragment(index, children, typeObj, typeObj.type)
+            })}
+            {/* <div
               dangerouslySetInnerHTML={{
                 __html: content?.html,
               }}
-            />
+            /> */}
           </div>
         </div>
       </div>

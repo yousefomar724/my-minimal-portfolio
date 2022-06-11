@@ -80,9 +80,30 @@
 .blog__content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   margin: 3rem 0;
 }
+
+.blog__content code::before {
+  content: '`';
+}
+.blog__content code::after {
+  content: '`';
+}
+
+.blog__content pre code {
+  padding: 1.2rem 1rem !important;
+  border-radius: 0.5rem;
+  box-shadow: var(--main-shadow);
+  line-height: 1.5;
+}
+.blog__content pre code::before {
+  content: none;
+}
+.blog__content pre code::after {
+  content: none;
+}
+
 .blog__content p {
   line-height: 1.9rem;
 }

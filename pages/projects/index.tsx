@@ -43,6 +43,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               url
             }
             previewUrl
+            githubUrl
             slug
             size
             technologies {
@@ -76,7 +77,6 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     projects__page,
     projects__container,
     projects__title,
-    projects__btns,
     project__content,
     project__card,
     project__updatedAt,
@@ -147,65 +147,57 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                   previewUrl,
                 } = project?.node!
                 return (
-                  <Link href={`/projects/${slug}`} key={slug}>
-                    <div className={project__card}>
-                      <div className={project__card__content}>
-                        <div>
-                          <small>{type}</small> |{' '}
-                          <small className={project__size}>{size}</small>
-                        </div>
-                        <div className={project__heading}>
-                          <h3 className={project__card__title}>{title}</h3>
-                          <div className={project__url__btns}>
-                            <a
-                              target='_blank'
-                              href={githubUrl}
-                              rel='noreferrer'
-                              className={`button button__small ${project__btn}`}
-                            >
-                              <small>Github</small> <RiLink />
-                            </a>
-                            <a
-                              href={previewUrl}
-                              target='_blank'
-                              rel='noreferrer'
-                              className={`button button__small ${project__btn}`}
-                            >
-                              <small>Preview</small> <RiArrowRightUpFill />
-                            </a>
-                            <a
-                              href={`/projects/${slug}`}
-                              target='_blank'
-                              rel='noreferrer'
-                              className={`button button__small ${project__btn}`}
-                            >
-                              <small>Details</small> <CgDetailsMore />
-                            </a>
-                          </div>
-                        </div>
-                        <small className={project__updatedAt}>
-                          {moment(updatedAt).format('ddd MMMM DD YYYY')}
-                        </small>
-                        <span className={project__technologies}>
-                          {technologies.map((tech) => (
-                            <a
-                              href={tech.url}
-                              key={tech.url}
-                              target='_blank'
-                              rel='noreferrer'
-                            >
-                              <span className={project__tech}>{tech.name}</span>
-                            </a>
-                          ))}
-                        </span>
-                        <p className={project__description}>
-                          {description?.length > 100
-                            ? `${description?.slice(0, 100)}...`
-                            : description}
-                        </p>
+                  <div className={project__card} key={slug}>
+                    <div className={project__card__content}>
+                      <div>
+                        <small>{type}</small> |{' '}
+                        <small className={project__size}>{size}</small>
                       </div>
+                      <div className={project__heading}>
+                        <a href={previewUrl} target='_blank' rel='noreferrer'>
+                          <h3 className={project__card__title}>{title}</h3>
+                        </a>
+                        <div className={project__url__btns}>
+                          <a
+                            href={githubUrl}
+                            target='_blank'
+                            rel='noreferrer'
+                            className={`button button__small ${project__btn}`}
+                          >
+                            <small>Github</small> <RiLink />
+                          </a>
+                          <a
+                            href={previewUrl}
+                            target='_blank'
+                            rel='noreferrer'
+                            className={`button button__small ${project__btn}`}
+                          >
+                            <small>Preview</small> <RiArrowRightUpFill />
+                          </a>
+                        </div>
+                      </div>
+                      <small className={project__updatedAt}>
+                        {moment(updatedAt).format('ddd MMMM DD YYYY')}
+                      </small>
+                      <span className={project__technologies}>
+                        {technologies.map((tech) => (
+                          <a
+                            href={tech.url}
+                            key={tech.url}
+                            target='_blank'
+                            rel='noreferrer'
+                          >
+                            <span className={project__tech}>{tech.name}</span>
+                          </a>
+                        ))}
+                      </span>
+                      <p className={project__description}>
+                        {description?.length > 100
+                          ? `${description?.slice(0, 100)}...`
+                          : description}
+                      </p>
                     </div>
-                  </Link>
+                  </div>
                 )
               })}
           </div>

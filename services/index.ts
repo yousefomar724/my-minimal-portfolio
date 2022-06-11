@@ -129,6 +129,7 @@ export const getPost = async (slug: string) => {
         title
         content {
           html
+          raw
         }
         createdAt
         excerpt
