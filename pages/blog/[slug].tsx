@@ -13,6 +13,7 @@ import moment from 'moment'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import React, { ReactNode } from 'react'
 import Highlight from 'react-highlight'
+import ScrollToTop from '../../components/scrollToTop'
 
 const getContentFragment = (
   index: number,
@@ -256,6 +257,7 @@ const PostDetails = ({ post }: Props) => {
         </div>
       </div>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
