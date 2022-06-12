@@ -4,14 +4,21 @@ import data from '../data'
 
 const Topbar = () => {
   const [value, setValue] = useState(0)
-  const [dark, setDark] = useState(
-    document.body.classList.contains('dark-theme')
+  const [isDark, setIsDark] = useState(
+    JSON.parse(localStorage.getItem('portfolio-dark-theme')!) || false
   )
 
   useEffect(() => {
-    setDark(dark)
-    document.body.classList.toggle('dark-theme', dark)
-  }, [dark])
+    const darkTheme = window.localStorage.getItem('portfolio-dark-theme')
+    if (darkTheme !== null) setIsDark(JSON.parse(darkTheme))
+  }, [])
+
+  useEffect(() => {
+    isDark
+      ? document.body.classList.add('dark-theme')
+      : document.body.classList.remove('dark-theme')
+    window.localStorage.setItem('portfolio-dark-theme', JSON.stringify(isDark))
+  }, [isDark])
 
   useEffect(() => {
     data.header.colors.map((color, index) => {
@@ -40,10 +47,16 @@ const Topbar = () => {
   return (
     <>
       {/* Dark/Light Btn */}
-      {dark ? (
-        <RiSunLine onClick={() => setDark(!dark)} className='change-theme' />
+      {isDark ? (
+        <RiSunLine
+          onClick={() => setIsDark(!isDark)}
+          className='change-theme'
+        />
       ) : (
-        <RiMoonLine onClick={() => setDark(!dark)} className='change-theme' />
+        <RiMoonLine
+          onClick={() => setIsDark(!isDark)}
+          className='change-theme'
+        />
       )}
 
       {/* Colors Theme Btns */}

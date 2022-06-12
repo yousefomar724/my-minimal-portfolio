@@ -355,6 +355,7 @@ body.dark-theme {
 
 .hide {
   opacity: 0;
+  transition: 0.2s;
 }
 
 /*=============== FILTERS TABS ===============*/
