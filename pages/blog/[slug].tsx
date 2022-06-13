@@ -40,7 +40,7 @@ const getContentFragment = (
     }
     if (obj.type === 'link') {
       modifiedText = (
-        <a key={index} href={obj?.href} target='_blank' rel={obj?.rel}>
+        <a key={index} href={obj?.href} target='_blank' rel='noreferrer'>
           {obj?.children?.map((item: any, i: number) => {
             if (item?.code) {
               return <code key={index}>{item.text}</code>
