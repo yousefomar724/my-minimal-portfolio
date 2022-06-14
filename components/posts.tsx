@@ -23,7 +23,7 @@ const Posts = ({ data }: Props) => {
   return (
     <div className='posts container'>
       {data.posts.slice(0, 4).map((post) => {
-        const { slug, categories, title, createdAt, excerpt } = post
+        const { slug, categories, title, createdAt, excerpt, language } = post
         return (
           // {/* Single Post  */}
           <Link href={`/blog/${slug}`} key={slug}>
@@ -31,7 +31,10 @@ const Posts = ({ data }: Props) => {
               <small className={blog__createdAt}>
                 {moment(createdAt).format('ddd MMMM DD YYYY')}
               </small>
-              <div className={blog__post__content}>
+              <div
+                className={blog__post__content}
+                style={language === 'arabic' ? { direction: 'rtl' } : {}}
+              >
                 <h3 className={blog__post__title}>{title}</h3>
                 <span className={blog__categories}>
                   {categories.map((category, index) => (

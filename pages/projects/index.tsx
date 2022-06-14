@@ -132,7 +132,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               )
             })}
           </ul>
-          <div className={project__content}>
+          <div className={``}>
             {selectedProjects &&
               selectedProjects.map((project: { node: Project }) => {
                 const {

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
+import { RiArrowLeftLine, RiArrowRightLine, RiH1 } from 'react-icons/ri'
 import { getAllPosts, GRAPHCMS_ENDPOINT } from '../../services'
 import { DataProps, Post } from '../../types'
 import styles from './blog.module.css'
@@ -33,6 +33,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
             title
             createdAt
             excerpt
+            language
             categories {
               name
               slug
@@ -61,6 +62,8 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
     { initialData: posts, revalidateOnFocus: false } as unknown as DataProps
   )
 
+  const [searchTerm, setSearchTerm] = useState('')
+
   const {
     blog,
     blog__container,
@@ -77,6 +80,11 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
     blog__excerpt,
     backhome__btn,
   } = styles
+
+  const filteredPosts = data?.postsConnection?.edges?.filter(
+    (val: { node: Post }) =>
+      val?.node?.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
     <div>
@@ -101,40 +109,64 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
             type='text'
             placeholder='Search blog posts'
             className={blog__search}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
           <div className={blog__content}>
-            {data?.postsConnection?.edges?.map((post: { node: Post }) => {
-              const {
-                slug,
-                title,
-                featuredImage: img,
-                excerpt,
-                categories,
-                createdAt,
-              } = post?.node!
-              return (
-                <Link href={`/blog/${slug}`} key={slug}>
-                  <div className={blog__post}>
-                    <small className={blog__createdAt}>
-                      {moment(createdAt).format('ddd MMMM DD YYYY')}
-                    </small>
-                    <div className={blog__post__content}>
-                      <h3 className={blog__post__title}>{title}</h3>
-                      <span className={blog__categories}>
-                        {categories.map((category, index) => (
-                          <Link href={`/category/${category.slug}`} key={index}>
-                            <span className={blog__category}>
-                              {category.name}
-                            </span>
-                          </Link>
-                        ))}
-                      </span>
-                      <p className={blog__excerpt}>{excerpt}</p>
-                    </div>
-                  </div>
-                </Link>
+            {data ? (
+              filteredPosts?.length > 0 ? (
+                filteredPosts.map((post: { node: Post }) => {
+                  const {
+                    slug,
+                    title,
+                    featuredImage: img,
+                    excerpt,
+                    categories,
+                    createdAt,
+                    language,
+                  } = post?.node!
+                  return (
+                    <>
+                      {
+                        <Link href={`/blog/${slug}`} key={slug}>
+                          <div className={blog__post}>
+                            <small className={blog__createdAt}>
+                              {moment(createdAt).format('ddd MMMM DD YYYY')}
+                            </small>
+                            <div
+                              className={blog__post__content}
+                              style={
+                                language === 'arabic'
+                                  ? { direction: 'rtl' }
+                                  : {}
+                              }
+                            >
+                              <h3 className={blog__post__title}>{title}</h3>
+                              <span className={blog__categories}>
+                                {categories.map((category, index) => (
+                                  <Link
+                                    href={`/category/${category.slug}`}
+                                    key={index}
+                                  >
+                                    <span className={blog__category}>
+                                      {category.name}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </span>
+                              <p className={blog__excerpt}>{excerpt}</p>
+                            </div>
+                          </div>
+                        </Link>
+                      }
+                    </>
+                  )
+                })
+              ) : (
+                <h1>No results found :/</h1>
               )
-            })}
+            ) : (
+              <h1>Loading...</h1>
+            )}
           </div>
           <div className={blog__btns}>
             <button
@@ -154,7 +186,6 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               <RiArrowRightLine />
             </button>
           </div>
-          {/* <p>Total Pages: {pageInfo?.pageSize}</p> */}
         </div>
         {error && <div>Failed to load</div>}
       </div>

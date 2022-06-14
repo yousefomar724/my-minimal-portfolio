@@ -47,6 +47,7 @@ export interface Post {
   featuredImage: FeaturedImage
   categories: Category[]
   updatedAt?: string
+  language: string
   content: { html: string; raw?: RawContent }
 }
 

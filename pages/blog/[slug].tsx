@@ -160,7 +160,15 @@ const PostDetails = ({ post }: Props) => {
     blog__lastupdated,
   } = styles
 
-  const { title, categories, author, createdAt, featuredImage, content } = post
+  const {
+    title,
+    categories,
+    author,
+    createdAt,
+    featuredImage,
+    content,
+    language,
+  } = post
 
   if (router.isFallback) return <h1>Loading...</h1>
   return (
@@ -191,7 +199,10 @@ const PostDetails = ({ post }: Props) => {
               </a>
             </Link>
           </div>
-          <div className={blog__heading}>
+          <div
+            className={blog__heading}
+            style={language === 'arabic' ? { direction: 'rtl' } : {}}
+          >
             <h1 className={blog__title}>{title}</h1>
             <span className={blog__categories}>
               {categories.map((category, index) => (
@@ -239,20 +250,16 @@ const PostDetails = ({ post }: Props) => {
               style={{ borderRadius: '.25rem' }}
             />
           </div>
-          <div className={blog__content}>
-            {/* {JSON.stringify(content.raw, null, 2)} */}
+          <div
+            className={blog__content}
+            style={language === 'arabic' ? { direction: 'rtl' } : {}}
+          >
             {content?.raw?.children.map((typeObj, index) => {
               const children = typeObj.children.map((item, itemindex) =>
                 getContentFragment(itemindex, item.text, item)
               )
-
               return getContentFragment(index, children, typeObj, typeObj.type)
             })}
-            {/* <div
-              dangerouslySetInnerHTML={{
-                __html: content?.html,
-              }}
-            /> */}
           </div>
         </div>
       </div>

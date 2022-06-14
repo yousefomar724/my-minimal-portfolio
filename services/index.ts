@@ -85,6 +85,7 @@ export const getHomePosts = async () => {
       posts(first: 4, orderBy: createdAt_DESC) {
         title
         slug
+        language
         createdAt
         excerpt
         categories {
@@ -132,6 +133,7 @@ export const getPost = async (slug: string) => {
           raw
         }
         createdAt
+        language
         excerpt
         categories {
           name
