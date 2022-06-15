@@ -10,6 +10,7 @@ import { useState } from 'react'
 import request from 'graphql-request'
 import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
+import React from 'react'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = (await getAllPosts()) || []
@@ -125,9 +126,9 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                     language,
                   } = post?.node!
                   return (
-                    <>
+                    <React.Fragment key={slug}>
                       {
-                        <Link href={`/blog/${slug}`} key={slug}>
+                        <Link href={`/blog/${slug}`}>
                           <div className={blog__post}>
                             <small className={blog__createdAt}>
                               {moment(createdAt).format('ddd MMMM DD YYYY')}
@@ -142,10 +143,10 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                             >
                               <h3 className={blog__post__title}>{title}</h3>
                               <span className={blog__categories}>
-                                {categories.map((category, index) => (
+                                {categories.map((category) => (
                                   <Link
                                     href={`/category/${category.slug}`}
-                                    key={index}
+                                    key={category.slug}
                                   >
                                     <span className={blog__category}>
                                       {category.name}
@@ -158,7 +159,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                           </div>
                         </Link>
                       }
-                    </>
+                    </React.Fragment>
                   )
                 })
               ) : (

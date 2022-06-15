@@ -43,7 +43,7 @@ const getContentFragment = (
         <a key={index} href={obj?.href} target='_blank' rel='noreferrer'>
           {obj?.children?.map((item: any, i: number) => {
             if (item?.code) {
-              return <code key={index}>{item.text}</code>
+              return <code key={i}>{item.text}</code>
             }
             if (item.type === 'link') {
               return (
@@ -82,14 +82,6 @@ const getContentFragment = (
           ))}
         </h3>
       )
-    case 'paragraph':
-      return (
-        <p key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </p>
-      )
     case 'heading-four':
       return (
         <h4 key={index}>
@@ -97,6 +89,32 @@ const getContentFragment = (
             <React.Fragment key={i}>{item}</React.Fragment>
           ))}
         </h4>
+      )
+    case 'bulleted-list':
+      return (
+        <ul key={index}>
+          {obj.children.map((item: any, i: number) => (
+            <React.Fragment key={i}>
+              {item.children.map((childItem: any, childI: number) => (
+                <React.Fragment key={childI}>
+                  {childItem.children.map(
+                    (grandChildItem: any, grandChildI: number) => (
+                      <li key={grandChildI}>{grandChildItem.text}</li>
+                    )
+                  )}
+                </React.Fragment>
+              ))}
+            </React.Fragment>
+          ))}
+        </ul>
+      )
+    case 'paragraph':
+      return (
+        <p key={index}>
+          {modifiedText.map((item: any, i: number) => (
+            <React.Fragment key={i}>{item}</React.Fragment>
+          ))}
+        </p>
       )
     case 'code-block':
       return <Highlight key={index}>{modifiedText}</Highlight>
@@ -205,8 +223,8 @@ const PostDetails = ({ post }: Props) => {
           >
             <h1 className={blog__title}>{title}</h1>
             <span className={blog__categories}>
-              {categories.map((category, index) => (
-                <Link href={`/category/${category.slug}`} key={index}>
+              {categories.map((category) => (
+                <Link href={`/category/${category.slug}`} key={category.slug}>
                   <span className={blog__category}>{category.name}</span>
                 </Link>
               ))}
@@ -255,9 +273,11 @@ const PostDetails = ({ post }: Props) => {
             style={language === 'arabic' ? { direction: 'rtl' } : {}}
           >
             {content?.raw?.children.map((typeObj, index) => {
-              const children = typeObj.children.map((item, itemindex) =>
-                getContentFragment(itemindex, item.text, item)
-              )
+              const children = typeObj.children.map((item, itemindex) => (
+                <React.Fragment key={index}>
+                  {getContentFragment(itemindex, item.text, item)}
+                </React.Fragment>
+              ))
               return getContentFragment(index, children, typeObj, typeObj.type)
             })}
           </div>

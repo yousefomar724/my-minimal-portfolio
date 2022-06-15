@@ -130,6 +130,7 @@ export enum Type {
   HeadingTwo = 'heading-two',
   HeadingThree = 'heading-three',
   HeadingFour = 'heading-four',
+  BulletedList = 'bulleted-list',
   Image = 'image',
   Paragraph = 'paragraph',
 }

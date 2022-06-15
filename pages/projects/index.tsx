@@ -133,7 +133,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
             })}
           </ul>
           <div className={``}>
-            {selectedProjects &&
+            {selectedProjects ? (
               selectedProjects.map((project: { node: Project }) => {
                 const {
                   slug,
@@ -199,7 +199,10 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                     </div>
                   </div>
                 )
-              })}
+              })
+            ) : (
+              <h1>Loading...</h1>
+            )}
           </div>
         </div>
         {error && <div>Failed to load</div>}
