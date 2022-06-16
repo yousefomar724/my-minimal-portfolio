@@ -12,6 +12,7 @@ import request from 'graphql-request'
 import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import { Footer } from '../../components'
+import Loader from '../../components/loader'
 
 export const getStaticProps: GetStaticProps = async () => {
   const projects = (await getAllProjects()) || []
@@ -77,7 +78,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     projects__page,
     projects__container,
     projects__title,
-    project__content,
+    project__cards,
     project__card,
     project__updatedAt,
     project__card__content,
@@ -90,6 +91,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     project__heading,
     project__url__btns,
     project__btn,
+    loader__container,
   } = styles
 
   let selectedProjects =
@@ -132,7 +134,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               )
             })}
           </ul>
-          <div className={``}>
+          <div className={project__cards}>
             {selectedProjects ? (
               selectedProjects.map((project: { node: Project }) => {
                 const {
@@ -201,7 +203,9 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                 )
               })
             ) : (
-              <h1>Loading...</h1>
+              <div className={loader__container}>
+                <Loader />
+              </div>
             )}
           </div>
         </div>

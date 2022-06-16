@@ -66,6 +66,11 @@
   margin: 1rem 0 3rem;
 }
 
+.project__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 .project__card {
   position: relative;
   overflow: hidden;
@@ -132,6 +137,7 @@
 }
 .project__technologies {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
 }
@@ -146,4 +152,10 @@
 .project__description {
   font-size: var(--small-font-size);
   margin: 0.5rem 0 0 0;
+}
+
+.loader__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

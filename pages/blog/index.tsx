@@ -11,6 +11,7 @@ import request from 'graphql-request'
 import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import React from 'react'
+import Loader from '../../components/loader'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = (await getAllPosts()) || []
@@ -80,6 +81,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
     blog__category,
     blog__excerpt,
     backhome__btn,
+    loader__container,
   } = styles
 
   const filteredPosts = data?.postsConnection?.edges?.filter(
@@ -166,7 +168,9 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                 <h1>No results found :/</h1>
               )
             ) : (
-              <h1>Loading...</h1>
+              <div className={loader__container}>
+                <Loader />
+              </div>
             )}
           </div>
           <div className={blog__btns}>
