@@ -21,11 +21,10 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-const fetchData = (endPoint: string, query: string, variables: any) =>
-  request(endPoint, query, variables)
+const fetchData = (endPoint: string, variables: any) =>
+  request(endPoint, variables)
 
 const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
-  const [skip, setSkip] = useState(0)
   const [value, setValue] = useState(0)
   const tabs = ['all', 'small', 'medium', 'large']
 
@@ -33,8 +32,8 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     [
       GRAPHCMS_ENDPOINT,
       `
-    query allprojects($skip: Int) {
-      projectsConnection(orderBy: updatedAt_DESC, first: 5, skip: $skip) {
+    query allprojects() {
+      projectsConnection(orderBy: updatedAt_DESC) {
         edges {
           node {
             description
@@ -68,9 +67,8 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
       }
     }
   `,
-      skip,
     ],
-    (endPoint, query) => fetchData(endPoint, query, { skip }),
+    (endPoint, query) => fetchData(endPoint, query),
     { initialData: projects, revalidateOnFocus: false } as unknown as DataProps
   )
 
