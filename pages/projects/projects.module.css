@@ -1,7 +1,7 @@
 .projects__page {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  /* max-width: 600px; */
   margin: 2rem auto;
 }
 .projects__container {
@@ -9,6 +9,10 @@
   flex-direction: column;
   margin-inline: 1rem;
   position: relative;
+}
+.project__card__content {
+  /* padding: 1rem; */
+  width: 380px;
 }
 .projects__btns {
   display: flex;
@@ -68,19 +72,29 @@
 
 .project__cards {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
+  max-width: 800px;
+  margin: auto;
 }
 .project__card {
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: row-reverse;
+  border: 2px solid var(--first-color);
   border-radius: 20px;
   transition: 0.3s;
 }
 .project__card:hover {
   box-shadow: var(--main-shadow);
+}
+.project__card__img {
+  border-radius: 20px 20px 0 0;
+  /* box-shadow: var(--main-shadow); */
+  object-fit: cover;
+  object-position: center;
+  height: 250px;
 }
 .project__size {
   font-size: 0.8rem;
@@ -92,10 +106,6 @@
 .project__updatedAt {
   font-size: small;
   flex: 1;
-}
-.project__card__content {
-  flex: 3;
-  padding: 1rem;
 }
 .project__heading {
   display: flex;

@@ -13,6 +13,7 @@ import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import { Footer } from '../../components'
 import Loader from '../../components/loader'
+import SingleProject from '../../components/singleProject'
 
 export const getStaticProps: GetStaticProps = async () => {
   const projects = (await getAllProjects()) || []
@@ -109,13 +110,17 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
       </header>
       <div className={projects__page}>
         <div className={projects__container}>
-          <Link href='/'>
-            <a className={`button button__small button__gray ${backhome__btn}`}>
-              <RiArrowLeftLine />
-              Go Back Home
-            </a>
-          </Link>
-          <h1 className={projects__title}>The Projects</h1>
+          <div style={{ minWidth: '600px', margin: 'auto' }}>
+            <Link href='/'>
+              <a
+                className={`button button__small button__gray ${backhome__btn}`}
+              >
+                <RiArrowLeftLine />
+                Go Back Home
+              </a>
+            </Link>
+            <h1 className={projects__title}>The Projects</h1>
+          </div>
           {/* Filter Tabs */}
           <ul className='filters__content'>
             {tabs.map((tab, index) => {
@@ -134,72 +139,9 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
           </ul>
           <div className={project__cards}>
             {selectedProjects ? (
-              selectedProjects.map((project: { node: Project }) => {
-                const {
-                  slug,
-                  title,
-                  size,
-                  type,
-                  description,
-                  technologies,
-                  updatedAt,
-                  githubUrl,
-                  previewUrl,
-                } = project?.node!
-                return (
-                  <div className={project__card} key={slug}>
-                    <div className={project__card__content}>
-                      <div>
-                        <small>{type}</small> |{' '}
-                        <small className={project__size}>{size}</small>
-                      </div>
-                      <div className={project__heading}>
-                        <a href={previewUrl} target='_blank' rel='noreferrer'>
-                          <h3 className={project__card__title}>{title}</h3>
-                        </a>
-                        <div className={project__url__btns}>
-                          <a
-                            href={githubUrl}
-                            target='_blank'
-                            rel='noreferrer'
-                            className={`button button__small ${project__btn}`}
-                          >
-                            <small>Github</small> <RiLink />
-                          </a>
-                          <a
-                            href={previewUrl}
-                            target='_blank'
-                            rel='noreferrer'
-                            className={`button button__small ${project__btn}`}
-                          >
-                            <small>Preview</small> <RiArrowRightUpFill />
-                          </a>
-                        </div>
-                      </div>
-                      <small className={project__updatedAt}>
-                        {moment(updatedAt).format('ddd MMMM DD YYYY')}
-                      </small>
-                      <span className={project__technologies}>
-                        {technologies.map((tech) => (
-                          <a
-                            href={tech.url}
-                            key={tech.url}
-                            target='_blank'
-                            rel='noreferrer'
-                          >
-                            <span className={project__tech}>{tech.name}</span>
-                          </a>
-                        ))}
-                      </span>
-                      <p className={project__description}>
-                        {description?.length > 100
-                          ? `${description?.slice(0, 100)}...`
-                          : description}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })
+              selectedProjects.map((project: { node: Project }) => (
+                <SingleProject data={project?.node!} />
+              ))
             ) : (
               <div className={loader__container}>
                 <Loader />

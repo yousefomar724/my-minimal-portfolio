@@ -17,14 +17,17 @@ export default {
   header: {
     socialLinks: [
       {
+        title: 'Codepen',
         icon: RiCodepenLine,
         url: 'https://codepen.io/yousefomar724',
       },
       {
+        title: 'Linkedin',
         icon: RiLinkedinLine,
         url: 'https://www.linkedin.com/in/yousefomar724/',
       },
       {
+        title: 'GitHub',
         icon: RiGithubLine,
         url: 'https://github.com/yousefomar724',
       },

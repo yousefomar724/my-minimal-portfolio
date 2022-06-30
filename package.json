@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^6.3.16",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
     "html-react-parser": "^1.4.12",

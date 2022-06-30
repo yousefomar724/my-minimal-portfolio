@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Post, Project } from '../types'
 import data from '../data'
+import { motion } from 'framer-motion'
 
 interface Props {
   data: { posts: Post[]; projects: Project[] }
@@ -11,7 +12,12 @@ const Content = (props: Props) => {
   return (
     <main className='container'>
       {/* Filter Tabs */}
-      <ul className='filters__content'>
+      <motion.ul
+        className='filters__content'
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
         {data.tabs.map((tab, i: number) => {
           return (
             <button
@@ -25,15 +31,20 @@ const Content = (props: Props) => {
             </button>
           )
         })}
-      </ul>
+      </motion.ul>
       {/* Filter Sections */}
-      <div className='filters__sections'>
+      <motion.div
+        className='filters__sections'
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
         {data?.sections?.map((SelectedSection, index) => (
           <div key={index}>
             {value === index && <SelectedSection data={props.data} />}
           </div>
         ))}
-      </div>
+      </motion.div>
     </main>
   )
 }

@@ -107,6 +107,27 @@ code {
   color: var(--first-color);
 }
 
+.change-lang {
+  position: absolute;
+  top: 1.2rem;
+  font-size: 1.25rem;
+  right: 50%;
+  transform: translateX(50%);
+  color: var(--title-color);
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--title-color);
+}
+.change-lang:hover {
+  color: var(--first-color);
+}
+
 .color-btns {
   position: absolute;
   top: 1.5rem;
@@ -200,7 +221,9 @@ body.dark-theme {
   display: grid;
   text-align: center;
 }
-
+.profile__data__container {
+  margin-top: 2rem;
+}
 .profile__img {
   width: 100px;
   height: 100px;
@@ -661,6 +684,10 @@ body.dark-theme {
   .change-theme {
     top: 2.5rem;
     right: 2.5rem;
+  }
+
+  .change-lang {
+    top: 2.5rem;
   }
 
   .color-btns {

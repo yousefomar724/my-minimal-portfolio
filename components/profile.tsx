@@ -1,33 +1,34 @@
-import Image from 'next/image'
 import { RiDownloadLine, RiMessengerLine, RiWhatsappLine } from 'react-icons/ri'
 import data from '../data'
+import { motion } from 'framer-motion'
 
 const Profile = () => {
   return (
     <div className='profile__container grid'>
       <div className='profile__data'>
         {/* Profile Data */}
-        <>
-          <div className='profile__border'>
-            <div className='profile__img'>
-              <Image
-                width='120px'
-                height='120px'
-                src='/me.png'
-                alt='picture of me'
-              />
-            </div>
-          </div>
+        <motion.div
+          className='profile__data__container'
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1.5 }}
+        >
           <h2 className='profile__name'>Yousef Omar</h2>
           <h3 className='profile__profession'>Web developer</h3>
-        </>
+        </motion.div>
 
         {/* Social Links */}
-        <ul className='profile__social'>
+        <motion.ul
+          className='profile__social'
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
           {data.header.socialLinks.map((socialLink, i) => {
             return (
               <a
                 href={socialLink.url}
+                title={socialLink.title}
                 target='_blank'
                 rel='noreferrer'
                 className='profile__social-link'
@@ -37,11 +38,16 @@ const Profile = () => {
               </a>
             )
           })}
-        </ul>
+        </motion.ul>
       </div>
 
       {/* Experience (Info) */}
-      <div className='profile__info grid'>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className='profile__info grid'
+      >
         {data.header.experience.map((item, i) => {
           return (
             <div className='profile__info-group' key={i}>
@@ -52,19 +58,32 @@ const Profile = () => {
             </div>
           )
         })}
-      </div>
+      </motion.div>
 
       {/* Contact Btns */}
       <div className='profile__buttons'>
-        <a download='Yousef Omar' href='/YousefOmar.pdf' className='button'>
+        <motion.a
+          download='Yousef Omar'
+          href='/YousefOmar.pdf'
+          className='button'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
           Download CV <RiDownloadLine />
-        </a>
+        </motion.a>
 
-        <div className='profile__buttons-small'>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className='profile__buttons-small'
+        >
           <a
             href='https://api.whatsapp.com/send?phone=+201100124479&text=Hello, more information!'
             target='_blank'
             rel='noreferrer'
+            title='Contact me on WhatsApp'
             className='button button__small button__gray'
           >
             <RiWhatsappLine />
@@ -73,11 +92,12 @@ const Profile = () => {
             href='https://m.me/yousefomar724'
             target='_blank'
             rel='noreferrer'
+            title='Contact me on Messenger'
             className='button button__small button__gray'
           >
             <RiMessengerLine />
           </a>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

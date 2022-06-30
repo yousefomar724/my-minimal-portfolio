@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { RiMoonLine, RiSunLine } from 'react-icons/ri'
 import data from '../data'
+import { motion } from 'framer-motion'
 
 const Topbar = () => {
   const [value, setValue] = useState(0)
   const [isDark, setIsDark] = useState(
     JSON.parse(localStorage.getItem('portfolio-dark-theme')!) || false
   )
+  const [isArabic, setIsArabic] = useState(true)
 
   useEffect(() => {
     const darkTheme = window.localStorage.getItem('portfolio-dark-theme')
@@ -47,20 +49,55 @@ const Topbar = () => {
   return (
     <>
       {/* Dark/Light Btn */}
-      {isDark ? (
-        <RiSunLine
-          onClick={() => setIsDark(!isDark)}
-          className='change-theme'
-        />
-      ) : (
-        <RiMoonLine
-          onClick={() => setIsDark(!isDark)}
-          className='change-theme'
-        />
-      )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+      >
+        {isDark ? (
+          <RiSunLine
+            onClick={() => setIsDark(!isDark)}
+            className='change-theme'
+          />
+        ) : (
+          <RiMoonLine
+            onClick={() => setIsDark(!isDark)}
+            className='change-theme'
+          />
+        )}
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ type: 'tween', delay: 2 }}
+      >
+        {isArabic ? (
+          <span
+            className='change-lang'
+            title='اللغة العربية'
+            onClick={() => setIsArabic(!isArabic)}
+          >
+            ع
+          </span>
+        ) : (
+          <span
+            className='change-lang'
+            title='English'
+            onClick={() => setIsArabic(!isArabic)}
+          >
+            E
+          </span>
+        )}
+      </motion.div>
 
       {/* Colors Theme Btns */}
-      <div className='color-btns'>
+      <motion.div
+        className='color-btns'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+      >
         {data.header.colors.map((palette, index) => {
           const { color, hue, sat, lig } = palette
           return (
@@ -75,7 +112,7 @@ const Topbar = () => {
             />
           )
         })}
-      </div>
+      </motion.div>
     </>
   )
 }
