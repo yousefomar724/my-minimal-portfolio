@@ -1,3 +1,4 @@
+import { i18n, useTranslation } from 'next-i18next'
 import { RiCodepenLine, RiLinkedinLine, RiGithubLine } from 'react-icons/ri'
 import {
   SiAuth0,
@@ -32,23 +33,6 @@ export default {
         url: 'https://github.com/yousefomar724',
       },
     ],
-    experience: [
-      {
-        num: 1,
-        text1: 'Year of',
-        text2: 'work',
-      },
-      {
-        num: '20+',
-        text1: 'Completed',
-        text2: 'projects',
-      },
-      {
-        num: 6,
-        text1: 'Satisfied',
-        text2: 'customers',
-      },
-    ],
     colors: [
       {
         color: 'Blue',
@@ -76,17 +60,6 @@ export default {
       },
     ],
   },
-  tabs: [
-    {
-      text: 'Projects',
-    },
-    {
-      text: 'Skills',
-    },
-    {
-      text: 'Posts',
-    },
-  ],
   sections: [Projects, Skills, Posts],
   projects: [
     {

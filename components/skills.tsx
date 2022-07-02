@@ -1,17 +1,76 @@
-import data from '../data'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 const Skills = () => {
-  const {
-    skills: { frontend, backend },
-  } = data
+  const { t } = useTranslation()
+  const router = useRouter()
+  const skillsData = {
+    frontend: {
+      title: t('home:frontend'),
+      frontendSkills: [
+        {
+          tech: 'HTML',
+          level: t('home:basic'),
+        },
+        {
+          tech: 'React',
+          level: t('home:intermediate'),
+        },
+        {
+          tech: 'CSS',
+          level: t('home:advanced'),
+        },
+        {
+          tech: 'Bootstrap',
+          level: t('home:intermediate'),
+        },
+        {
+          tech: 'JavaScript',
+          level: t('home:intermediate'),
+        },
+        {
+          tech: 'Git',
+          level: t('home:intermediate'),
+        },
+      ],
+    },
+    backend: {
+      title: t('home:backend'),
+      backendSkills: [
+        {
+          tech: 'Node Js',
+          level: t('home:intermediate'),
+        },
+        {
+          tech: 'Python',
+          level: t('home:basic'),
+        },
+        {
+          tech: 'Mongo DB',
+          level: t('home:basic'),
+        },
+        {
+          tech: 'Firebase',
+          level: t('home:intermediate'),
+        },
+        {
+          tech: 'Ruby & Rails',
+          level: t('home:basic'),
+        },
+      ],
+    },
+  }
   return (
-    <div className='skills__content grid'>
+    <div
+      className='skills__content grid'
+      style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+    >
       <div className='skills__area'>
-        <h3 className='skills__title'>{frontend.title}</h3>
+        <h3 className='skills__title'>{skillsData.frontend.title}</h3>
 
         <div className='skills__box'>
           <div className='skills__group'>
-            {frontend.frontendSkills.slice(0, 3).map((skill, i) => {
+            {skillsData.frontend.frontendSkills.slice(0, 3).map((skill, i) => {
               return (
                 <div className='skills__data' key={i}>
                   <i className='ri-checkbox-circle-line'></i>
@@ -25,7 +84,7 @@ const Skills = () => {
             })}
           </div>
           <div className='skills__group'>
-            {frontend.frontendSkills.slice(3, 6).map((skill, i) => {
+            {skillsData.frontend.frontendSkills.slice(3, 6).map((skill, i) => {
               return (
                 <div className='skills__data' key={i}>
                   <i className='ri-checkbox-circle-line'></i>
@@ -41,11 +100,11 @@ const Skills = () => {
         </div>
       </div>
       <div className='skills__area'>
-        <h3 className='skills__title'>{backend.title}</h3>
+        <h3 className='skills__title'>{skillsData.backend.title}</h3>
 
         <div className='skills__box'>
           <div className='skills__group'>
-            {backend.backendSkills.slice(0, 3).map((skill, i) => {
+            {skillsData.backend.backendSkills.slice(0, 3).map((skill, i) => {
               return (
                 <div className='skills__data' key={i}>
                   <i className='ri-checkbox-circle-line'></i>
@@ -59,7 +118,7 @@ const Skills = () => {
             })}
           </div>
           <div className='skills__group'>
-            {backend.backendSkills.slice(3, 5).map((skill, i) => {
+            {skillsData.backend.backendSkills.slice(3, 5).map((skill, i) => {
               return (
                 <div className='skills__data' key={i}>
                   <i className='ri-checkbox-circle-line'></i>

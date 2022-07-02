@@ -1,6 +1,10 @@
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import data from '../data'
 
 const Footer = () => {
+  const { t } = useTranslation()
+  const router = useRouter()
   return (
     <footer className='footer container'>
       <ul className='profile__social'>
@@ -19,7 +23,7 @@ const Footer = () => {
         })}
       </ul>
       <span className='post__footer'>
-        &#169; Yousef Omar. All rigths reserved
+        &#169; {t('common:my_name')}. {t('common:footer')}
       </span>
     </footer>
   )

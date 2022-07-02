@@ -1,8 +1,10 @@
-import { RiArrowRightUpLine } from 'react-icons/ri'
+import { RiArrowLeftUpLine, RiArrowRightUpLine } from 'react-icons/ri'
 import Link from 'next/link'
 import { Post, Project } from '../types'
 import styles from '../pages/blog/blog.module.css'
 import moment from 'moment'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 interface Props {
   data: {
@@ -20,6 +22,9 @@ const Posts = ({ data }: Props) => {
     blog__category,
     blog__excerpt,
   } = styles
+
+  const { t } = useTranslation()
+  const router = useRouter()
   return (
     <div className='posts container'>
       {data.posts.slice(0, 4).map((post) => {
@@ -50,8 +55,16 @@ const Posts = ({ data }: Props) => {
         )
       })}
       <Link href='/blog'>
-        <a className='button posts__btn'>
-          View all <RiArrowRightUpLine />
+        <a
+          className='button posts__btn'
+          style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+        >
+          {t('home:view_all')}{' '}
+          {router.locale === 'ar' ? (
+            <RiArrowLeftUpLine />
+          ) : (
+            <RiArrowRightUpLine />
+          )}
         </a>
       </Link>
     </div>

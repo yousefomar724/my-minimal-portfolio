@@ -1,6 +1,13 @@
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { RiLink, RiArrowRightUpFill, RiArrowRightUpLine } from 'react-icons/ri'
+import { useRouter } from 'next/router'
+import {
+  RiLink,
+  RiArrowRightUpFill,
+  RiArrowRightUpLine,
+  RiArrowLeftUpLine,
+} from 'react-icons/ri'
 import { Post, Project } from '../types'
 
 interface Props {
@@ -8,10 +15,12 @@ interface Props {
 }
 
 const Projects = ({ data }: Props) => {
+  const { t } = useTranslation()
+  const router = useRouter()
   return (
     <div className='projects__content' data-content id='projects'>
       <div className='projects__container'>
-        {data.projects.map((project, i) => {
+        {data.projects.map((project) => {
           const {
             slug,
             image,
@@ -82,8 +91,16 @@ const Projects = ({ data }: Props) => {
         })}
       </div>
       <Link href='/projects'>
-        <a className='button projects__btn'>
-          View all <RiArrowRightUpLine />
+        <a
+          className='button projects__btn'
+          style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+        >
+          {t('home:view_all')}
+          {router.locale === 'ar' ? (
+            <RiArrowLeftUpLine />
+          ) : (
+            <RiArrowRightUpLine />
+          )}
         </a>
       </Link>
     </div>

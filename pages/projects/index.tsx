@@ -14,11 +14,22 @@ import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import { Footer } from '../../components'
 import Loader from '../../components/loader'
 import SingleProject from '../../components/singleProject'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const projects = (await getAllProjects()) || []
   return {
-    props: { projects },
+    props: {
+      projects,
+      ...(await serverSideTranslations(locale!, [
+        'projects',
+        'home',
+        'common',
+      ])),
+      locale,
+    },
   }
 }
 
@@ -26,8 +37,15 @@ const fetchData = (endPoint: string, variables: any) =>
   request(endPoint, variables)
 
 const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
+  const router = useRouter()
+  const { t } = useTranslation()
   const [value, setValue] = useState(0)
-  const tabs = ['all', 'small', 'medium', 'large']
+  const tabs = [
+    t('projects:all'),
+    t('projects:small'),
+    t('projects:medium'),
+    t('projects:large'),
+  ]
 
   const { data, error } = useSWR(
     [
@@ -78,51 +96,50 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     projects__container,
     projects__title,
     project__cards,
-    project__card,
-    project__updatedAt,
-    project__card__content,
-    project__card__title,
-    project__technologies,
-    project__tech,
-    project__description,
     backhome__btn,
-    project__size,
-    project__heading,
-    project__url__btns,
-    project__btn,
     loader__container,
   } = styles
 
+  const enTabs = ['all', 'small', 'medium', 'large']
   let selectedProjects =
-    tabs[value] === 'all'
+    enTabs[value] === 'all'
       ? data?.projectsConnection?.edges
       : data?.projectsConnection?.edges?.filter(
-          (project: { node: Project }) => project?.node?.size === tabs[value]
+          (project: { node: Project }) => project?.node?.size === enTabs[value]
         )
 
   return (
     <div>
       <Head>
-        <title>Projects</title>
+        <title>{t('projects:the_projects')}</title>
       </Head>
       <header className='profile container'>
         <TopbarWithNoSSR />
       </header>
       <div className={projects__page}>
         <div className={projects__container}>
-          <div style={{ minWidth: '600px', margin: 'auto' }}>
+          <div
+            style={
+              router.locale === 'ar'
+                ? { direction: 'rtl', minWidth: '600px', margin: 'auto' }
+                : { minWidth: '600px', margin: 'auto' }
+            }
+          >
             <Link href='/'>
               <a
                 className={`button button__small button__gray ${backhome__btn}`}
               >
                 <RiArrowLeftLine />
-                Go Back Home
+                {t('common:back_home')}
               </a>
             </Link>
-            <h1 className={projects__title}>The Projects</h1>
+            <h1 className={projects__title}>{t('projects:the_projects')}</h1>
           </div>
           {/* Filter Tabs */}
-          <ul className='filters__content'>
+          <ul
+            className='filters__content'
+            style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+          >
             {tabs.map((tab, index) => {
               return (
                 <button
@@ -140,7 +157,10 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
           <div className={project__cards}>
             {selectedProjects ? (
               selectedProjects.map((project: { node: Project }) => (
-                <SingleProject data={project?.node!} />
+                <SingleProject
+                  key={project?.node?.slug}
+                  data={project?.node!}
+                />
               ))
             ) : (
               <div className={loader__container}>
