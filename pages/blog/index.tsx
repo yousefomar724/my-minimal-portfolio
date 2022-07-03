@@ -12,11 +12,17 @@ import Head from 'next/head'
 import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import React from 'react'
 import Loader from '../../components/loader'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const posts = (await getAllPosts()) || []
   return {
-    props: { posts },
+    props: {
+      posts,
+      ...(await serverSideTranslations(locale!, ['blog', 'common'])),
+    },
   }
 }
 
@@ -24,6 +30,8 @@ const fetchData = (endPoint: string, query: string, variables: any) =>
   request(endPoint, query, variables)
 
 const Blog: NextPage<{ posts: any }> = ({ posts }) => {
+  const { t } = useTranslation()
+  const router = useRouter()
   const [skip, setSkip] = useState(0)
   const { data, error } = useSWR(
     [
@@ -92,25 +100,36 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
   return (
     <div>
       <Head>
-        <title>The Blog</title>
+        <title>{t('blog:the_blog')}</title>
       </Head>
       <header className='profile container'>
         <TopbarWithNoSSR />
       </header>
+
       <div className={blog}>
-        <div className={blog__container}>
+        <div
+          className={blog__container}
+          style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+        >
           <Link href='/'>
-            <a className={`button button__small button__gray ${backhome__btn}`}>
-              <RiArrowLeftLine />
-              Go Back Home
+            <a
+              className={`button button__small button__gray ${backhome__btn}`}
+              style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+            >
+              {router.locale === 'ar' ? (
+                <RiArrowRightLine />
+              ) : (
+                <RiArrowLeftLine />
+              )}
+              {t('common:back_home')}
             </a>
           </Link>
           <h1 className={blog__title} style={{ margin: '1rem 0 2rem' }}>
-            The Blog
+            {t('blog:the_blog')}
           </h1>
           <input
             type='text'
-            placeholder='Search blog posts'
+            placeholder={t('blog:search_blog')}
             className={blog__search}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
@@ -165,7 +184,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                   )
                 })
               ) : (
-                <h1>No results found :/</h1>
+                <h1>{t('blog:no_results')} :/</h1>
               )
             ) : (
               <div className={loader__container}>
@@ -179,16 +198,24 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               onClick={() => setSkip((lastValue) => lastValue - 5)}
               className={`button button__small button__gray ${backhome__btn}`}
             >
-              <RiArrowLeftLine />
-              Prev
+              {router.locale === 'ar' ? (
+                <RiArrowRightLine />
+              ) : (
+                <RiArrowLeftLine />
+              )}
+              {t('blog:prev')}
             </button>
             <button
               disabled={!data?.postsConnection?.pageInfo?.hasNextPage}
               onClick={() => setSkip((lastValue) => lastValue + 5)}
               className={`button button__small button__gray ${backhome__btn}`}
             >
-              Next
-              <RiArrowRightLine />
+              {t('blog:next')}
+              {router.locale === 'ar' ? (
+                <RiArrowLeftLine />
+              ) : (
+                <RiArrowRightLine />
+              )}
             </button>
           </div>
         </div>
@@ -196,7 +223,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
       </div>
       <footer className='footer container'>
         <span className='footer__copy'>
-          &#169; Yousef Omar. All rigths reserved
+          &#169; {t('common:my_name')}. {t('common:footer')}
         </span>
       </footer>
     </div>

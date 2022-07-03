@@ -104,16 +104,16 @@ const Topbar = () => {
         animate={{ opacity: 1 }}
         transition={{ type: 'tween', delay: 2 }}
       >
-        {router.locale === 'en' ? (
-          <Link href='/' locale='en'>
-            <span className='change-lang' title='اللغة العربية'>
-              ع
+        {router.locale === 'ar' ? (
+          <Link href={router.asPath} locale='en'>
+            <span className='change-lang' title='English'>
+              E
             </span>
           </Link>
         ) : (
-          <Link href='/ar' locale='ar'>
-            <span className='change-lang' title='English'>
-              E
+          <Link href={router.asPath} locale='ar'>
+            <span className='change-lang' title='اللغة العربية'>
+              ع
             </span>
           </Link>
         )}

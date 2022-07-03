@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { GetStaticPaths, NextPage } from 'next'
 import Link from 'next/link'
-import { RiArrowLeftLine } from 'react-icons/ri'
+import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
 import { getCategoriesSlugs, getPostsByCategory } from '../../services'
 import { Post } from '../../types'
 import styles from '../blog/blog.module.css'
@@ -10,28 +10,51 @@ import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import { useRouter } from 'next/router'
 import { Params } from 'next/dist/server/router'
 import { Footer } from '../../components'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
-export const getStaticProps = async ({ params }: { params: Params }) => {
-  const posts = await getPostsByCategory(params.slug)
-  return {
-    props: {
-      posts,
-    },
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const categoriesSlugs = await getCategoriesSlugs()
   const slugPaths = categoriesSlugs.map((slug: { slug: any }) => ({
     params: { slug: slug.slug },
   }))
 
+  const paths = slugPaths.flatMap((slugPath: { params: { slug: string } }) => {
+    return locales?.map((locale) => {
+      return {
+        params: {
+          slug: slugPath.params.slug,
+        },
+        locale,
+      }
+    })
+  })
+
   return {
-    paths: slugPaths,
+    paths,
     fallback: false,
   }
 }
 
+export const getStaticProps = async ({
+  params,
+  locale,
+}: {
+  params: Params
+  locale: string
+}) => {
+  const posts = await getPostsByCategory(params.slug)
+  return {
+    props: {
+      posts,
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'home',
+        'category',
+      ])),
+    },
+  }
+}
 const Category: NextPage<{ posts: Post[] }> = ({ posts }) => {
   const {
     blog,
@@ -48,31 +71,46 @@ const Category: NextPage<{ posts: Post[] }> = ({ posts }) => {
     backhome__btn,
     blog__heading,
   } = styles
-  const { query } = useRouter()
+  const router = useRouter()
+  const { t } = useTranslation()
 
   return (
     <div>
       <Head>
         <title>
-          {posts[0].categories.find((cat) => cat.slug === query.slug)?.name}
+          {
+            posts[0].categories.find((cat) => cat.slug === router.query.slug)
+              ?.name
+          }
         </title>
       </Head>
       <header className='profile container'>
         <TopbarWithNoSSR />
       </header>
       <div className={blog}>
-        <div className={blog__container}>
+        <div
+          className={blog__container}
+          style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+        >
           <Link href='/'>
             <a className={`button button__small button__gray ${backhome__btn}`}>
-              <RiArrowLeftLine />
-              Go Back Home
+              {router.locale === 'ar' ? (
+                <RiArrowRightLine />
+              ) : (
+                <RiArrowLeftLine />
+              )}
+              {t('common:back_home')}
             </a>
           </Link>
           <div className={blog__heading}>
             <h1 className={blog__title}>
-              {posts[0].categories.find((cat) => cat.slug === query.slug)?.name}
+              {
+                posts[0].categories.find(
+                  (cat) => cat.slug === router.query.slug
+                )?.name
+              }
             </h1>
-            <small>Category</small>
+            <small>{t('category:category')}</small>
           </div>
           <div className={blog__content}>
             {posts.map((post: Post) => {

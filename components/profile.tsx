@@ -55,7 +55,7 @@ const Profile = () => {
       >
         <div className='profile__info-group'>
           <h3 className='profile__info-number'>
-            {router.locale === 'ar' ? '+٢' : '+2'}
+            {router.locale === 'ar' ? '+١' : '+1'}
           </h3>
           <p className='profile__info-description'>
             {t('home:work_experience1')} <br /> {t('home:work_experience2')}

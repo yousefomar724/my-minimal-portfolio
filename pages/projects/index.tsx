@@ -1,7 +1,12 @@
 import moment from 'moment'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import { RiArrowLeftLine, RiArrowRightUpFill, RiLink } from 'react-icons/ri'
+import {
+  RiArrowLeftLine,
+  RiArrowRightLine,
+  RiArrowRightUpFill,
+  RiLink,
+} from 'react-icons/ri'
 import { CgDetailsMore } from 'react-icons/cg'
 import { getAllProjects, GRAPHCMS_ENDPOINT } from '../../services'
 import { DataProps, Project } from '../../types'
@@ -129,7 +134,11 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               <a
                 className={`button button__small button__gray ${backhome__btn}`}
               >
-                <RiArrowLeftLine />
+                {router.locale === 'ar' ? (
+                  <RiArrowRightLine />
+                ) : (
+                  <RiArrowLeftLine />
+                )}
                 {t('common:back_home')}
               </a>
             </Link>

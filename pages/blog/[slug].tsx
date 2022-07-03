@@ -1,4 +1,3 @@
-import { Params } from 'next/dist/server/router'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
@@ -14,6 +13,8 @@ import TopbarWithNoSSR from '../../components/topbarWithNoSSR'
 import React, { ReactNode } from 'react'
 import Highlight from 'react-highlight'
 import ScrollToTop from '../../components/scrollToTop'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
 const getContentFragment = (
   index: number,
@@ -133,33 +134,46 @@ const getContentFragment = (
   }
 }
 
-export const getStaticProps = async ({ params }: { params: Params }) => {
-  const post = await getPost(params.slug)
-  return {
-    props: {
-      post,
-    },
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const postsSlugs = await getPostsSlugs()
-  const slugPaths = postsSlugs.map((slug: { slug: any }) => ({
+  const slugPaths = postsSlugs.map((slug: { slug: string }) => ({
     params: { slug: slug.slug },
   }))
 
+  const paths = slugPaths.flatMap((slugPath: { params: { slug: string } }) => {
+    return locales?.map((locale) => {
+      return {
+        params: {
+          slug: slugPath.params.slug,
+        },
+        locale,
+      }
+    })
+  })
+
   return {
-    paths: slugPaths,
+    paths,
     fallback: false,
   }
 }
 
-interface Props {
-  post: Post
+export const getStaticProps = async (context: any) => {
+  const post = await getPost(context.params.slug)
+  return {
+    props: {
+      post,
+      ...(await serverSideTranslations(context.locale!, [
+        'common',
+        'home',
+        'blog',
+      ])),
+    },
+  }
 }
 
-const PostDetails = ({ post }: Props) => {
+const PostDetails = ({ post }: { post: Post }) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const {
     blog,
@@ -199,21 +213,32 @@ const PostDetails = ({ post }: Props) => {
       </header>
       <div className={blog}>
         <div className={blog__container}>
-          <div className={blog__btns}>
+          <div
+            className={blog__btns}
+            style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+          >
             <Link href='/'>
               <a
                 className={`button button__small button__gray ${backhome__btn}`}
               >
-                <RiArrowLeftLine />
-                Go Home
+                {router.locale === 'ar' ? (
+                  <RiArrowRightLine />
+                ) : (
+                  <RiArrowLeftLine />
+                )}
+                {t('common:back_home')}
               </a>
             </Link>
             <Link href='/blog'>
               <a
                 className={`button button__small button__gray ${backhome__btn}`}
               >
-                Go to Blog
-                <RiArrowRightLine />
+                {t('blog:to_blog')}
+                {router.locale === 'ar' ? (
+                  <RiArrowLeftLine />
+                ) : (
+                  <RiArrowRightLine />
+                )}
               </a>
             </Link>
           </div>
@@ -230,15 +255,18 @@ const PostDetails = ({ post }: Props) => {
               ))}
             </span>
           </div>
-          <div className={blog__metadata}>
+          <div
+            className={blog__metadata}
+            style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+          >
             <small className={blog__lastupdated}>
-              <small> last updated</small>
-              {moment(createdAt).format('ddd MMMM DD YYYY')}
+              <small>{t('blog:last_updated')}</small>
+              {moment(createdAt).format('DD/MM/YYYY')}
             </small>
             <div className={blog__author}>
               <Image
                 src={author.photo.url}
-                alt={`photo of ${author.name}`}
+                alt={`photo of me`}
                 width={50}
                 height={50}
                 objectFit='cover'
@@ -251,8 +279,12 @@ const PostDetails = ({ post }: Props) => {
                   flexDirection: 'column',
                 }}
               >
-                <span className={blog__author__name}>{author.name}</span>
-                <small style={{ fontSize: '.7rem' }}>{author.position}</small>
+                <span className={blog__author__name}>
+                  {t('common:my_name')}
+                </span>
+                <small style={{ fontSize: '.7rem' }}>
+                  {t('home:job_title')}
+                </small>
               </div>
             </div>
           </div>
