@@ -1,13 +1,6 @@
-import moment from 'moment'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import {
-  RiArrowLeftLine,
-  RiArrowRightLine,
-  RiArrowRightUpFill,
-  RiLink,
-} from 'react-icons/ri'
-import { CgDetailsMore } from 'react-icons/cg'
+import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
 import { getAllProjects, GRAPHCMS_ENDPOINT } from '../../services'
 import { DataProps, Project } from '../../types'
 import styles from '../projects/projects.module.css'

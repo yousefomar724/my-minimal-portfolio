@@ -612,6 +612,14 @@ body.dark-theme {
   color: var(--text-color-light);
 }
 
+.ball {
+  width: 10px;
+  height: 10px;
+  margin: 40px auto;
+  border-radius: 50%;
+  background-color: var(--first-color);
+}
+
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {
   width: 0.6rem;

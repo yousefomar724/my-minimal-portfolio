@@ -3,17 +3,19 @@ import data from '../data'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Profile = () => {
   const router = useRouter()
   const { t } = useTranslation()
+
   return (
     <div className='profile__container grid'>
       <div className='profile__data'>
         {/* Profile Data */}
         <motion.div
           className='profile__data__container'
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
         >
@@ -30,7 +32,9 @@ const Profile = () => {
         >
           {data.header.socialLinks.map((socialLink, i) => {
             return (
-              <a
+              <motion.a
+                drag
+                whileDrag={{ scale: 1.2 }}
                 href={socialLink.url}
                 title={socialLink.title}
                 target='_blank'
@@ -39,7 +43,7 @@ const Profile = () => {
                 key={i}
               >
                 <socialLink.icon />
-              </a>
+              </motion.a>
             )
           })}
         </motion.ul>
@@ -93,6 +97,8 @@ const Profile = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
+          drag
+          whileDrag={{ scale: 1.1 }}
         >
           {t('home:download_cv')} <RiDownloadLine />
         </motion.a>
@@ -103,7 +109,7 @@ const Profile = () => {
           transition={{ delay: 0.5 }}
           className='profile__buttons-small'
         >
-          <a
+          <motion.a
             href='https://api.whatsapp.com/send?phone=+201100124479&text=Hello, more information!'
             target='_blank'
             rel='noreferrer'
@@ -111,7 +117,7 @@ const Profile = () => {
             className='button button__small button__gray'
           >
             <RiWhatsappLine />
-          </a>
+          </motion.a>
           <a
             href='https://m.me/yousefomar724'
             target='_blank'
