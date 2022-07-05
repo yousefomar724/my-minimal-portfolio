@@ -1,12 +1,23 @@
+import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 import data from '../data'
 
 const Footer = () => {
   const { t } = useTranslation()
-  const router = useRouter()
+  const footerVariants = {
+    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 40 },
+  }
+
   return (
-    <footer className='footer container'>
+    <motion.footer
+      className='footer container'
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, delay: 1 }}
+      variants={footerVariants}
+    >
       <ul className='profile__social'>
         {data.header.socialLinks.map((socialLink, i) => {
           return (
@@ -25,7 +36,7 @@ const Footer = () => {
       <span className='post__footer'>
         &#169; {t('common:my_name')}. {t('common:footer')}
       </span>
-    </footer>
+    </motion.footer>
   )
 }
 

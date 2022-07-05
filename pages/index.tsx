@@ -7,6 +7,7 @@ import { Post, Project } from '../types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const { posts, projects } = (await getHomePosts()) || []
@@ -40,11 +41,23 @@ const Home: NextPage<HomeProps> = (props) => {
         <Profile />
       </header>
       <Content data={props} />
-      <footer className='footer container'>
+      <motion.footer
+        initial={{
+          opacity: 0,
+          y: 40,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
+        className='footer container'
+      >
         <span className='footer__copy'>
           &#169; {t('common:my_name')}. {t('common:footer')}
         </span>
-      </footer>
+      </motion.footer>
     </div>
   )
 }

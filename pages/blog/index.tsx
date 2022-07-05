@@ -15,6 +15,7 @@ import Loader from '../../components/loader'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { motion } from 'framer-motion'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const posts = (await getAllPosts()) || []
@@ -97,6 +98,29 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
       val?.node?.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  const cardsVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.5, duration: 1 },
+    },
+  }
+  const headVariants = {
+    hidden: {
+      opacity: 0,
+      x: -1000,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { delay: 0.5, duration: 1 },
+    },
+  }
+
   return (
     <div>
       <Head>
@@ -107,9 +131,12 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
       </header>
 
       <div className={blog}>
-        <div
+        <motion.div
           className={blog__container}
           style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+          variants={headVariants}
+          initial='hidden'
+          animate='visible'
         >
           <Link href='/'>
             <a
@@ -218,7 +245,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               )}
             </button>
           </div>
-        </div>
+        </motion.div>
         {error && <div>Failed to load</div>}
       </div>
       <footer className='footer container'>

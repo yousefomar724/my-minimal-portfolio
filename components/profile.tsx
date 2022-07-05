@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Image from 'next/image'
 
 const Profile = () => {
   const router = useRouter()
@@ -15,9 +16,9 @@ const Profile = () => {
         {/* Profile Data */}
         <motion.div
           className='profile__data__container'
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1.5 }}
+          initial={{ x: -1000, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
         >
           <h2 className='profile__name'>{t('common:my_name')}</h2>
           <h3 className='profile__profession'>{t('home:job_title')}</h3>
@@ -28,7 +29,7 @@ const Profile = () => {
           className='profile__social'
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
         >
           {data.header.socialLinks.map((socialLink, i) => {
             return (
@@ -54,7 +55,7 @@ const Profile = () => {
         style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 0.5 }}
         className='profile__info grid'
       >
         <div className='profile__info-group'>
@@ -70,9 +71,9 @@ const Profile = () => {
             {router.locale === 'ar' ? '+٢٠' : '+20'}
           </h3>
           <p className='profile__info-description'>
-            {t('home:completed_projects2')}
-            <br />
             {t('home:completed_projects1')}
+            <br />
+            {t('home:completed_projects2')}
           </p>
         </div>
         <div className='profile__info-group'>
@@ -80,9 +81,9 @@ const Profile = () => {
             {router.locale === 'ar' ? '٢' : '2'}
           </h3>
           <p className='profile__info-description'>
-            {t('home:num_of_customers2')}
-            <br />
             {t('home:num_of_customers1')}
+            <br />
+            {t('home:num_of_customers2')}
           </p>
         </div>
       </motion.div>

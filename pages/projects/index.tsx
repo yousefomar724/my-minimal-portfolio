@@ -15,6 +15,7 @@ import SingleProject from '../../components/singleProject'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { motion } from 'framer-motion'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const projects = (await getAllProjects()) || []
@@ -89,6 +90,29 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
     { initialData: projects, revalidateOnFocus: false } as unknown as DataProps
   )
 
+  const cardsVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.5, duration: 1 },
+    },
+  }
+  const headVariants = {
+    hidden: {
+      opacity: 0,
+      x: -1000,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { delay: 0.5, duration: 1 },
+    },
+  }
+
   const {
     projects__page,
     projects__container,
@@ -116,12 +140,15 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
       </header>
       <div className={projects__page}>
         <div className={projects__container}>
-          <div
+          <motion.div
             style={
               router.locale === 'ar'
                 ? { direction: 'rtl', minWidth: '600px', margin: 'auto' }
                 : { minWidth: '600px', margin: 'auto' }
             }
+            variants={headVariants}
+            initial='hidden'
+            animate='visible'
           >
             <Link href='/'>
               <a
@@ -136,9 +163,12 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               </a>
             </Link>
             <h1 className={projects__title}>{t('projects:the_projects')}</h1>
-          </div>
+          </motion.div>
           {/* Filter Tabs */}
-          <ul
+          <motion.ul
+            variants={cardsVariants}
+            initial='hidden'
+            animate='visible'
             className='filters__content'
             style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
           >
@@ -155,8 +185,13 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                 </button>
               )
             })}
-          </ul>
-          <div className={project__cards}>
+          </motion.ul>
+          <motion.div
+            className={project__cards}
+            variants={cardsVariants}
+            initial='hidden'
+            animate='visible'
+          >
             {selectedProjects ? (
               selectedProjects.map((project: { node: Project }) => (
                 <SingleProject
@@ -169,7 +204,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                 <Loader />
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
         {error && <div>Failed to load</div>}
       </div>

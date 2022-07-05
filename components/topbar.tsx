@@ -84,7 +84,7 @@ const Topbar = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 0.5 }}
       >
         {isDark ? (
           <RiSunLine
@@ -102,7 +102,7 @@ const Topbar = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ type: 'tween', delay: 2 }}
+        transition={{ type: 'tween', delay: 0.5 }}
       >
         {router.locale === 'ar' ? (
           <Link href={router.asPath} locale='en'>
@@ -124,7 +124,7 @@ const Topbar = () => {
         className='color-btns'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 0.5 }}
       >
         {colors.map((palette, index) => {
           const { color, hue, sat, lig } = palette
