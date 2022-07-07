@@ -1,14 +1,36 @@
-import { RiDownloadLine, RiMessengerLine, RiWhatsappLine } from 'react-icons/ri'
-import data from '../data'
+import {
+  RiCodepenLine,
+  RiDownloadLine,
+  RiGithubLine,
+  RiLinkedinLine,
+  RiMessengerLine,
+  RiWhatsappLine,
+} from 'react-icons/ri'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import Image from 'next/image'
 
 const Profile = () => {
   const router = useRouter()
   const { t } = useTranslation()
+
+  const socialLinks = [
+    {
+      title: 'Codepen',
+      icon: RiCodepenLine,
+      url: 'https://codepen.io/yousefomar724',
+    },
+    {
+      title: 'Linkedin',
+      icon: RiLinkedinLine,
+      url: 'https://www.linkedin.com/in/yousefomar724/',
+    },
+    {
+      title: 'GitHub',
+      icon: RiGithubLine,
+      url: 'https://github.com/yousefomar724',
+    },
+  ]
 
   return (
     <div className='profile__container grid'>
@@ -31,7 +53,7 @@ const Profile = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          {data.header.socialLinks.map((socialLink, i) => {
+          {socialLinks.map((socialLink, i) => {
             return (
               <motion.a
                 drag

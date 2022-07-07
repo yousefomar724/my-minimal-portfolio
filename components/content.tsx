@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Post, Project } from '../types'
 import { motion } from 'framer-motion'
-import data from '../data'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { Posts, Projects, Skills } from '.'
 
 interface Props {
   data: { posts: Post[]; projects: Project[] }
@@ -14,6 +14,7 @@ const Content = (props: Props) => {
   const { t } = useTranslation()
   const router = useRouter()
   const tabs = [t('home:projects'), t('home:skills'), t('home:posts')]
+  const sections = [Projects, Skills, Posts]
   return (
     <main className='container'>
       {/* Filter Tabs */}
@@ -45,7 +46,7 @@ const Content = (props: Props) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
       >
-        {data?.sections?.map((SelectedSection, index) => (
+        {sections?.map((SelectedSection, index) => (
           <div key={index}>
             {value === index && <SelectedSection data={props.data} />}
           </div>

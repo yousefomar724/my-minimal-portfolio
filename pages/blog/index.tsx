@@ -17,12 +17,12 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { motion } from 'framer-motion'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps = async (context: { locale: string }) => {
   const posts = (await getAllPosts()) || []
   return {
     props: {
       posts,
-      ...(await serverSideTranslations(locale!, ['blog', 'common'])),
+      ...(await serverSideTranslations(context?.locale!, ['blog', 'common'])),
     },
     revalidate: 1,
   }
