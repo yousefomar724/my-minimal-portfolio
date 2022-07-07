@@ -168,6 +168,7 @@ export const getStaticProps = async (context: any) => {
         'blog',
       ])),
     },
+    revalidate: 1,
   }
 }
 

@@ -53,6 +53,7 @@ export const getStaticProps = async ({
         'category',
       ])),
     },
+    revalidate: 1,
   }
 }
 const Category: NextPage<{ posts: Post[] }> = ({ posts }) => {

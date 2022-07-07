@@ -29,6 +29,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ])),
       locale,
     },
+    revalidate: 1,
   }
 }
 

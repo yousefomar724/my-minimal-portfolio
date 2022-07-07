@@ -24,6 +24,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       posts,
       ...(await serverSideTranslations(locale!, ['blog', 'common'])),
     },
+    revalidate: 1,
   }
 }
 
