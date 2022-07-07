@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Profile, FavIcon, Content } from '../components'
 import TopbarWithNoSSR from '../components/topbarWithNoSSR'
@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const { posts, projects } = (await getHomePosts()) || []
   return {
     props: {
@@ -18,7 +18,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale!, ['home', 'common'])),
       locale,
     },
-    revalidate: 1,
   }
 }
 

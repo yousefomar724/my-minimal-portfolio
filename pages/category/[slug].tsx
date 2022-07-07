@@ -13,6 +13,26 @@ import { Footer } from '../../components'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
+export const getStaticProps = async ({
+  params,
+  locale,
+}: {
+  params: Params
+  locale: string
+}) => {
+  const posts = await getPostsByCategory(params.slug)
+  return {
+    props: {
+      posts,
+      ...(await serverSideTranslations(locale!, [
+        'common',
+        'home',
+        'category',
+      ])),
+    },
+    revalidate: 1,
+  }
+}
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const categoriesSlugs = await getCategoriesSlugs()
   const slugPaths = categoriesSlugs.map((slug: { slug: any }) => ({
@@ -33,27 +53,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   return {
     paths,
     fallback: 'blocking',
-  }
-}
-
-export const getStaticProps = async ({
-  params,
-  locale,
-}: {
-  params: Params
-  locale: string
-}) => {
-  const posts = await getPostsByCategory(params.slug)
-  return {
-    props: {
-      posts,
-      ...(await serverSideTranslations(locale!, [
-        'common',
-        'home',
-        'category',
-      ])),
-    },
-    revalidate: 1,
   }
 }
 const Category: NextPage<{ posts: Post[] }> = ({ posts }) => {

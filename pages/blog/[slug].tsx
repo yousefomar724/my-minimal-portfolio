@@ -134,6 +134,20 @@ const getContentFragment = (
   }
 }
 
+export const getStaticProps = async (context: any) => {
+  const post = await getPost(context.params.slug)
+  return {
+    props: {
+      post,
+      ...(await serverSideTranslations(context.locale!, [
+        'common',
+        'home',
+        'blog',
+      ])),
+    },
+    revalidate: 1,
+  }
+}
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const postsSlugs = await getPostsSlugs()
   const slugPaths = postsSlugs.map((slug: { slug: string }) => ({
@@ -154,21 +168,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   return {
     paths,
     fallback: 'blocking',
-  }
-}
-
-export const getStaticProps = async (context: any) => {
-  const post = await getPost(context.params.slug)
-  return {
-    props: {
-      post,
-      ...(await serverSideTranslations(context.locale!, [
-        'common',
-        'home',
-        'blog',
-      ])),
-    },
-    revalidate: 1,
   }
 }
 
