@@ -143,8 +143,12 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
           <motion.div
             style={
               router.locale === 'ar'
-                ? { direction: 'rtl', minWidth: '600px', margin: 'auto' }
-                : { minWidth: '600px', margin: 'auto' }
+                ? {
+                    direction: 'rtl',
+                    width: 'min(100% - 2rem, 600px)',
+                    margin: 'auto',
+                  }
+                : { width: 'min(100% - 2rem, 600px)', margin: 'auto' }
             }
             variants={headVariants}
             initial='hidden'
