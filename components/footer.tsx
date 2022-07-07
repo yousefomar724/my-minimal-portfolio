@@ -1,9 +1,28 @@
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import data from '../data'
+import { RiCodepenLine, RiGithubLine, RiLinkedinLine } from 'react-icons/ri'
 
 const Footer = () => {
   const { t } = useTranslation()
+
+  const socialLinks = [
+    {
+      title: 'Codepen',
+      icon: RiCodepenLine,
+      url: 'https://codepen.io/yousefomar724',
+    },
+    {
+      title: 'Linkedin',
+      icon: RiLinkedinLine,
+      url: 'https://www.linkedin.com/in/yousefomar724/',
+    },
+    {
+      title: 'GitHub',
+      icon: RiGithubLine,
+      url: 'https://github.com/yousefomar724',
+    },
+  ]
+
   const footerVariants = {
     visible: { opacity: 1, y: 0 },
     hidden: { opacity: 0, y: 40 },
@@ -19,7 +38,7 @@ const Footer = () => {
       variants={footerVariants}
     >
       <ul className='profile__social'>
-        {data.header.socialLinks.map((socialLink, i) => {
+        {socialLinks.map((socialLink, i) => {
           return (
             <a
               href={socialLink.url}

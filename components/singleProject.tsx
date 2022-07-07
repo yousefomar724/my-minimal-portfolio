@@ -1,6 +1,5 @@
 import { Project } from '../types'
 import styles from '../pages/projects/projects.module.css'
-import { RiArrowRightUpFill, RiLink } from 'react-icons/ri'
 import moment from 'moment'
 
 const SingleProject = ({ data }: { data: Project }) => {
