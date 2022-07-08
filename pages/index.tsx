@@ -6,7 +6,6 @@ import { getHomePosts } from '../services'
 import { Post, Project } from '../types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

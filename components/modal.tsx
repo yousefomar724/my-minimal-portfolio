@@ -36,7 +36,7 @@ const Modal = ({ showModal, project, setShowModal }: IModal) => {
     visible: {
       y: 0,
       opacity: 1,
-      tranition: { delay: 1 },
+      tranition: { delay: 1, duration: 0.5 },
     },
   }
   return (
@@ -74,7 +74,6 @@ const Modal = ({ showModal, project, setShowModal }: IModal) => {
                     href={githubUrl}
                     rel='noreferrer'
                     className='projects__button button button__small'
-                    title='github repo'
                   >
                     Github <RiGithubFill />
                   </a>
@@ -83,7 +82,6 @@ const Modal = ({ showModal, project, setShowModal }: IModal) => {
                     target='_blank'
                     rel='noreferrer'
                     className='projects__button button button__small'
-                    title='live preview'
                   >
                     Preview <RiArrowRightUpFill />
                   </a>

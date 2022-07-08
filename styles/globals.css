@@ -524,7 +524,7 @@ body.dark-theme {
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  padding: 20px;
+  padding: 10px 20px;
   top: 0;
   background-color: hsl(var(--hue), var(--sat), var(--lig));
 }
@@ -545,6 +545,7 @@ body.dark-theme {
   cursor: pointer;
 }
 .modal__img {
+  width: 100%;
   border-radius: 20px;
   object-fit: cover;
   object-position: center;

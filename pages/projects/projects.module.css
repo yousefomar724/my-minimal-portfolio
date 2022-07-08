@@ -1,7 +1,6 @@
 .projects__page {
   display: flex;
   flex-direction: column;
-  /* max-width: 600px; */
   margin: 2rem auto;
 }
 .projects__container {
@@ -11,7 +10,6 @@
   position: relative;
 }
 .project__card__content {
-  /* padding: 1rem; */
   width: 380px;
 }
 .projects__btns {
@@ -76,7 +74,7 @@
   justify-content: center;
   gap: 2rem;
   max-width: 800px;
-  margin: auto;
+  margin: 3rem auto;
 }
 .project__card {
   position: relative;
