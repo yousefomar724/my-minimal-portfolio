@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     },
   }
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <motion.div
         key={router.route}
         initial='pageInitial'

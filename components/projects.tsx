@@ -2,13 +2,16 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import {
-  RiLink,
   RiArrowRightUpFill,
   RiArrowRightUpLine,
   RiArrowLeftUpLine,
+  RiGithubFill,
+  RiGithubLine,
 } from 'react-icons/ri'
 import { Post, Project } from '../types'
+import Modal from './modal'
 
 interface Props {
   data: { posts: Post[]; projects: Project[] }
@@ -17,10 +20,12 @@ interface Props {
 const Projects = ({ data }: Props) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
+  const [value, setValue] = useState(0)
   return (
     <div className='projects__content' data-content id='projects'>
       <div className='projects__container'>
-        {data.projects.map((project) => {
+        {data.projects.map((project, i: number) => {
           const {
             slug,
             image,
@@ -42,26 +47,45 @@ const Projects = ({ data }: Props) => {
                   <span className='project__size'>{size}</span>
                   <h3 className='projects__title'>{title}</h3>
                   <div className='project__content'>
-                    <div className='projects__content__links'>
-                      <a
-                        target='_blank'
-                        href={githubUrl}
-                        rel='noreferrer'
-                        className='projects__button button button__small'
-                        title='github repo'
+                    <div className='projects__links__container'>
+                      <div className='projects__content__links'>
+                        <a
+                          target='_blank'
+                          href={githubUrl}
+                          rel='noreferrer'
+                          className='projects__button button button__small'
+                          title='github repo'
+                        >
+                          <RiGithubFill />
+                        </a>
+                        <a
+                          href={previewUrl}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='projects__button button button__small'
+                          title='live preview'
+                        >
+                          <RiArrowRightUpFill />
+                        </a>
+                      </div>
+                      <span
+                        className='projects__button button button__small project__size'
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          setShowModal(true)
+                          setValue(i)
+                        }}
                       >
-                        <RiLink />
-                      </a>
-                      <a
-                        href={previewUrl}
-                        target='_blank'
-                        rel='noreferrer'
-                        className='projects__button button button__small'
-                        title='live preview'
-                      >
-                        <RiArrowRightUpFill />
-                      </a>
+                        Details
+                      </span>
                     </div>
+                    {value === i && (
+                      <Modal
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        project={project}
+                      />
+                    )}
                     <div className='projects__tags'>
                       {technologies.map((tech, i) => {
                         return (

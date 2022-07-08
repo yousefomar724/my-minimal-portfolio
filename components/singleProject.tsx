@@ -4,23 +4,14 @@ import moment from 'moment'
 
 const SingleProject = ({ data }: { data: Project }) => {
   const {
-    projects__page,
-    projects__container,
-    projects__title,
-    project__cards,
     project__card,
     project__updatedAt,
     project__card__content,
     project__card__title,
     project__technologies,
     project__tech,
-    project__description,
-    backhome__btn,
     project__size,
     project__heading,
-    project__url__btns,
-    project__btn,
-    loader__container,
     project__card__img,
   } = styles
 
@@ -30,17 +21,19 @@ const SingleProject = ({ data }: { data: Project }) => {
     size,
     type,
     image,
-    description,
     technologies,
     updatedAt,
-    githubUrl,
     previewUrl,
   } = data
   return (
     <div className={project__card} key={slug}>
       <div className={project__card__content}>
         <img src={image.url} alt={title} className={project__card__img} />
-        <div style={{ padding: '0 1rem 1rem' }}>
+        <div
+          style={{
+            padding: '0 1rem 1rem',
+          }}
+        >
           <div>
             <small>{type}</small> |{' '}
             <small className={project__size}>{size}</small>

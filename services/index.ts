@@ -102,6 +102,7 @@ export const getHomePosts = async () => {
           width
         }
         previewUrl
+        description
         size
         slug
         title

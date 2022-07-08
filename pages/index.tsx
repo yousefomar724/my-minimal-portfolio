@@ -29,7 +29,6 @@ interface HomeProps {
 }
 const Home: NextPage<HomeProps> = (props) => {
   const { t } = useTranslation()
-  const router = useRouter()
   return (
     <div>
       <Head>
