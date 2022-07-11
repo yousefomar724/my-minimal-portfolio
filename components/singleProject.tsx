@@ -6,13 +6,14 @@ const SingleProject = ({ data }: { data: Project }) => {
   const {
     project__card,
     project__updatedAt,
-    project__card__content,
+    project__card__container,
     project__card__title,
     project__technologies,
     project__tech,
     project__size,
     project__heading,
     project__card__img,
+    project__card__content,
   } = styles
 
   const {
@@ -27,13 +28,9 @@ const SingleProject = ({ data }: { data: Project }) => {
   } = data
   return (
     <div className={project__card} key={slug}>
-      <div className={project__card__content}>
+      <div className={project__card__container}>
         <img src={image.url} alt={title} className={project__card__img} />
-        <div
-          style={{
-            padding: '0 1rem 1rem',
-          }}
-        >
+        <div className={project__card__content}>
           <div>
             <small>{type}</small> |{' '}
             <small className={project__size}>{size}</small>

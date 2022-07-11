@@ -9,8 +9,13 @@
   margin-inline: 1rem;
   position: relative;
 }
-.project__card__content {
+.project__card__container {
   width: 380px;
+}
+.project__card__content {
+  padding: 1rem;
+  border: 2px solid var(--first-color);
+  border-radius: 0 0 20px 20px;
 }
 .projects__btns {
   display: flex;

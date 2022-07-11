@@ -240,8 +240,8 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
                             {moment(createdAt).format('DD/MM/YYYY')}
                           </small>
                           <span className={project__technologies}>
-                            {categories.map((category) => (
-                              <span className={project__tech}>
+                            {categories.map((category, index) => (
+                              <span className={project__tech} key={index}>
                                 {category.name}
                               </span>
                             ))}
