@@ -1,8 +1,9 @@
-import { Project } from '../types'
+import { Item } from '../types'
 import styles from '../pages/projects/projects.module.css'
 import moment from 'moment'
+import Link from 'next/link'
 
-const SingleProject = ({ data }: { data: Project }) => {
+const SingleProject = ({ data }: { data: Item }) => {
   const {
     project__card,
     project__updatedAt,
@@ -25,15 +26,27 @@ const SingleProject = ({ data }: { data: Project }) => {
     technologies,
     updatedAt,
     previewUrl,
+    featuredImage,
+    categories,
+    excerpt,
   } = data
   return (
     <div className={project__card} key={slug}>
       <div className={project__card__container}>
-        <img src={image.url} alt={title} className={project__card__img} />
+        <img
+          src={image?.url || featuredImage?.url}
+          alt={title}
+          className={project__card__img}
+          style={featuredImage ? { height: 'auto' } : { height: '250px' }}
+        />
         <div className={project__card__content}>
           <div>
-            <small>{type}</small> |{' '}
-            <small className={project__size}>{size}</small>
+            {size && type && (
+              <>
+                <small>{type}</small> |{' '}
+                <small className={project__size}>{size}</small>
+              </>
+            )}
           </div>
           <div className={project__heading}>
             <a href={previewUrl} target='_blank' rel='noreferrer'>
@@ -44,17 +57,29 @@ const SingleProject = ({ data }: { data: Project }) => {
             {moment(updatedAt).format('DD/MM/YYYY')}
           </small>
           <span className={project__technologies}>
-            {technologies.map((tech) => (
-              <a
-                href={tech.url}
-                key={tech.url}
-                target='_blank'
-                rel='noreferrer'
-              >
-                <span className={project__tech}>{tech.name}</span>
-              </a>
-            ))}
+            {technologies
+              ? technologies.map((tech) => (
+                  <a
+                    href={tech.url}
+                    key={tech.url}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    <span className={project__tech}>{tech.name}</span>
+                  </a>
+                ))
+              : categories?.map((category) => (
+                  <Link
+                    href={`/category/${category?.slug}`}
+                    key={category?.slug}
+                  >
+                    <a>
+                      <span className={project__tech}>{category?.name}</span>
+                    </a>
+                  </Link>
+                ))}
           </span>
+          {excerpt && <p>{excerpt}</p>}
         </div>
       </div>
     </div>

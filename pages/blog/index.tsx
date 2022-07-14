@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { motion } from 'framer-motion'
 import { Footer } from '../../components'
+import SingleProject from '../../components/singleProject'
 
 export const getStaticProps = async (context: { locale: string }) => {
   const posts = (await getAllPosts()) || []
@@ -113,19 +114,6 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
     },
   }
 
-  const {
-    project__card,
-    project__updatedAt,
-    project__card__content,
-    project__card__title,
-    project__technologies,
-    project__tech,
-    project__size,
-    project__heading,
-    project__card__img,
-    project__cards,
-  } = Projectstyles
-
   return (
     <div>
       <Head>
@@ -168,89 +156,12 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               style={{ width: '100%' }}
             />
           </div>
-          <div className={project__cards}>
+          <div className={Projectstyles.project__cards}>
             {data ? (
               filteredPosts?.length > 0 ? (
-                filteredPosts.map((post: { node: Post }) => {
-                  const {
-                    slug,
-                    title,
-                    featuredImage: img,
-                    excerpt,
-                    categories,
-                    createdAt,
-                    language,
-                  } = post?.node!
-                  return (
-                    // <React.Fragment key={slug}>
-                    //   {
-                    //     <Link href={`/blog/${slug}`}>
-                    //       <div className={blog__post}>
-                    //         <small className={blog__createdAt}>
-                    //           {moment(createdAt).format('ddd MMMM DD YYYY')}
-                    //         </small>
-                    //         <div
-                    //           className={blog__post__content}
-                    //           style={
-                    //             language === 'arabic'
-                    //               ? { direction: 'rtl' }
-                    //               : {}
-                    //           }
-                    //         >
-                    //           <h3 className={blog__post__title}>{title}</h3>
-                    //           <span className={blog__categories}>
-                    //             {categories.map((category) => (
-                    //               <Link
-                    //                 href={`/category/${category.slug}`}
-                    //                 key={category.slug}
-                    //               >
-                    //                 <span className={blog__category}>
-                    //                   {category.name}
-                    //                 </span>
-                    //               </Link>
-                    //             ))}
-                    //           </span>
-                    //           <p className={blog__excerpt}>{excerpt}</p>
-                    //         </div>
-                    //       </div>
-                    //     </Link>
-                    //   }
-                    // </React.Fragment>
-                    <div className={project__card} key={slug}>
-                      <div className={project__card__content}>
-                        <img
-                          src={img.url}
-                          alt={title}
-                          className={project__card__img}
-                          style={{
-                            width: '100%',
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                          }}
-                        />
-                        <div
-                          style={{
-                            padding: '0 1rem 1rem',
-                          }}
-                        >
-                          <div className={project__heading}>
-                            <h3 className={project__card__title}>{title}</h3>
-                          </div>
-                          <small className={project__updatedAt}>
-                            {moment(createdAt).format('DD/MM/YYYY')}
-                          </small>
-                          <span className={project__technologies}>
-                            {categories.map((category, index) => (
-                              <span className={project__tech} key={index}>
-                                {category.name}
-                              </span>
-                            ))}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })
+                filteredPosts.map((post: { node: Post }) => (
+                  <SingleProject key={post?.node?.slug} data={post?.node!} />
+                ))
               ) : (
                 <h1>{t('blog:no_results')} :/</h1>
               )
@@ -262,7 +173,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
           </div>
           <div
             className={blog__btns}
-            style={{ width: 'min(100% - 2rem, 600px)' }}
+            style={{ width: 'min(100% - 2rem, 600px)', margin: 'auto' }}
           >
             <button
               disabled={!data?.postsConnection?.pageInfo?.hasPreviousPage}

@@ -134,3 +134,23 @@ export enum Type {
   Image = 'image',
   Paragraph = 'paragraph',
 }
+
+export interface Item {
+  author?: Author
+  createdAt?: Date
+  slug?: string
+  title?: string
+  excerpt?: string
+  featuredImage?: FeaturedImage
+  categories?: Category[]
+  language?: string
+  content?: { html: string; raw?: RawContent }
+  githubUrl?: string
+  image?: Image
+  previewUrl?: string
+  size?: string
+  type?: string
+  updatedAt?: string | Date
+  description?: string
+  technologies?: { name: string; url: string; image: Image }[]
+}
