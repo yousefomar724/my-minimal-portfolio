@@ -39,7 +39,13 @@ const Projects = ({ data }: Props) => {
           return (
             <article className='projects__card' key={slug}>
               {/* <!-- Image should be in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
-              <Image src={image.url} alt={title} title={title} layout='fill' />
+              <Image
+                src={image.url}
+                alt={title}
+                title={title}
+                priority={true}
+                layout='fill'
+              />
 
               <div className='projects__modal'>
                 <div>

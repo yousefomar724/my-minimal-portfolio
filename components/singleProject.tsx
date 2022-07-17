@@ -49,9 +49,14 @@ const SingleProject = ({ data }: { data: Item }) => {
             )}
           </div>
           <div className={project__heading}>
-            <a href={previewUrl} target='_blank' rel='noreferrer'>
-              <h3 className={project__card__title}>{title}</h3>
-            </a>
+            <Link href={previewUrl ? previewUrl : `/blog/${slug}`}>
+              <a
+                target={previewUrl ? '_blank' : ''}
+                rel={previewUrl ? 'noreferrer' : ''}
+              >
+                <h3 className={project__card__title}>{title}</h3>
+              </a>
+            </Link>
           </div>
           <small className={project__updatedAt}>
             {moment(updatedAt).format('DD/MM/YYYY')}
