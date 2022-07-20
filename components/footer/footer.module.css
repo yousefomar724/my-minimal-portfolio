@@ -1,0 +1,21 @@
+.footer__social {
+  display: flex;
+  justify-content: center;
+  column-gap: 0.75rem;
+}
+.footer__social__link {
+  font-size: 1.25rem;
+  /* color: var(--title-color); */
+  color: var(--text-color);
+  transition: 0.3s;
+}
+.footer__social__link:hover {
+  color: var(--first-color);
+}
+.footer__text {
+  display: block;
+  margin: 0.5rem 0 2rem;
+  text-align: center;
+  font-size: var(--smaller-font-size);
+  color: var(--text-color-light);
+}

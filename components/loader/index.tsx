@@ -21,7 +21,13 @@ const Loader = () => {
   return (
     <>
       <motion.div
-        className='ball'
+        style={{
+          width: '10px',
+          height: '10px',
+          margin: '40px auto',
+          borderRadius: '50%',
+          backgroundColor: 'var(--first-color)',
+        }}
         variants={loaderVariants}
         animate='animate'
       />

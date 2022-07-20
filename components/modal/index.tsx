@@ -2,7 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import React, { Dispatch, SetStateAction } from 'react'
 import { RiArrowRightUpFill, RiCloseFill, RiGithubFill } from 'react-icons/ri'
-import { Project } from '../types'
+import { Project } from '../../types'
+import styles from './modal.module.css'
 
 interface IModal {
   showModal: boolean
@@ -43,32 +44,32 @@ const Modal = ({ showModal, project, setShowModal }: IModal) => {
     <AnimatePresence exitBeforeEnter>
       {showModal && (
         <motion.div
-          className='backdrop'
+          className={styles.backdrop}
           initial='hidden'
           animate='visible'
           variants={backdropVariants}
         >
           <motion.div
-            className='modal'
+            className={styles.modal}
             initial='hidden'
             animate='visible'
             variants={modalVariants}
           >
-            <div className='modal__header'>
-              <h3 className='modal__header__title'>{title}</h3>
+            <div className={styles.modal__header}>
+              <h3 className={styles.modal__header__title}>{title}</h3>
               <button onClick={() => setShowModal(false)}>
                 <RiCloseFill />
               </button>
             </div>
-            <div className='modal__content'>
-              <img src={image.url} alt={title} className='modal__img' />
-              <div className='modal__head'>
-                <div className='modal__metadata'>
+            <div className={styles.modal__content}>
+              <img src={image.url} alt={title} className={styles.modal__img} />
+              <div className={styles.modal__head}>
+                <div className={styles.modal__metadata}>
                   <span>{type}</span> |{' '}
-                  <span className='project__size'>{size}</span>
-                  <h2 className='modal__title'>{title}</h2>
+                  <span className={styles.modal__size}>{size}</span>
+                  <h2 className={styles.modal__title}>{title}</h2>
                 </div>
-                <div className='projects__content__links'>
+                <div className={styles.modal__content__links}>
                   <a
                     target='_blank'
                     href={githubUrl}
@@ -87,8 +88,8 @@ const Modal = ({ showModal, project, setShowModal }: IModal) => {
                   </a>
                 </div>
               </div>
-              <div className='modal__heading'>
-                <p className='modal__desc'>{description}</p>
+              <div className={styles.modal__heading}>
+                <p className={styles.modal__desc}>{description}</p>
               </div>
             </div>
           </motion.div>

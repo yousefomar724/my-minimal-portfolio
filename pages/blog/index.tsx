@@ -1,4 +1,3 @@
-import moment from 'moment'
 import Projectstyles from '../projects/projects.module.css'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -18,7 +17,6 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { motion } from 'framer-motion'
 import { Footer } from '../../components'
-import SingleProject from '../../components/singleProject'
 
 export const getStaticProps = async (context: { locale: string }) => {
   const posts = (await getAllPosts()) || []
@@ -152,7 +150,8 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
             {data ? (
               filteredPosts?.length > 0 ? (
                 filteredPosts.map((post: { node: Post }) => (
-                  <SingleProject key={post?.node?.slug} data={post?.node!} />
+                  // <SingleProject key={post?.node?.slug} data={post?.node!} />
+                  <h1>{post.node.title}</h1>
                 ))
               ) : (
                 <h1>{t('blog:no_results')} :/</h1>

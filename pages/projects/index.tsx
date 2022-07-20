@@ -134,7 +134,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
   return (
     <div>
       <Head>
-        <title>{t('projects:the_projects')}</title>
+        <title>{t('projects:the_projects') || ''}</title>
       </Head>
       <header className='profile container'>
         <TopbarWithNoSSR />
@@ -167,7 +167,9 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
                 {t('common:back_home')}
               </a>
             </Link>
-            <h1 className={projects__title}>{t('projects:the_projects')}</h1>
+            <h1 className={projects__title}>
+              {t('projects:the_projects') ? t('projects:the_projects') : ''}
+            </h1>
           </motion.div>
           {/* Filter Tabs */}
           <motion.ul

@@ -8,7 +8,6 @@ import {
   RiArrowRightUpLine,
   RiArrowLeftUpLine,
   RiGithubFill,
-  RiGithubLine,
 } from 'react-icons/ri'
 import { Post, Project } from '../types'
 import Modal from './modal'
