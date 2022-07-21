@@ -1,9 +1,11 @@
-import { Project } from '../types'
-import styles from '../pages/projects/projects.module.css'
+import { Project } from '../../types'
+import styles from './singleProject.module.css'
 import moment from 'moment'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const SingleProject = ({ data }: { data: Project }) => {
+  const router = useRouter()
   const {
     project__card,
     project__updatedAt,
@@ -31,7 +33,10 @@ const SingleProject = ({ data }: { data: Project }) => {
     <div className={project__card} key={slug}>
       <div className={project__card__container}>
         <img src={image?.url} alt={title} className={project__card__img} />
-        <div className={project__card__content}>
+        <div
+          className={project__card__content}
+          style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
+        >
           <div>
             <small>{type}</small> |{' '}
             <small className={project__size}>{size}</small>

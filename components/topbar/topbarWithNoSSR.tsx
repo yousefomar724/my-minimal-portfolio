@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-const DynamicComponentWithNoSSR = dynamic(() => import('./topbar'), {
+const DynamicComponentWithNoSSR = dynamic(() => import('.'), {
   ssr: false,
 })
 

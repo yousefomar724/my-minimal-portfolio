@@ -9,8 +9,9 @@ import {
   RiArrowLeftUpLine,
   RiGithubFill,
 } from 'react-icons/ri'
-import { Post, Project } from '../types'
-import Modal from './modal'
+import { Post, Project } from '../../types'
+import Modal from '../modal'
+import styles from './projects.module.css'
 
 interface Props {
   data: { posts: Post[]; projects: Project[] }
@@ -21,9 +22,25 @@ const Projects = ({ data }: Props) => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [value, setValue] = useState(0)
+  const {
+    projects__content,
+    projects__container,
+    projects__card,
+    projects__modal,
+    projects__title,
+    projects__subtitle,
+    project__size,
+    project__content,
+    projects__links__container,
+    projects__content__links,
+    projects__button,
+    projects__tags,
+    projects__tag,
+    projects__btn,
+  } = styles
   return (
-    <div className='projects__content' data-content id='projects'>
-      <div className='projects__container'>
+    <div className={projects__content} data-content id='projects'>
+      <div className={projects__container}>
         {data.projects.map((project, i: number) => {
           const {
             slug,
@@ -36,7 +53,7 @@ const Projects = ({ data }: Props) => {
             size,
           } = project
           return (
-            <article className='projects__card' key={slug}>
+            <article className={projects__card} key={slug}>
               {/* <!-- Image should be in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) --> */}
               <Image
                 src={image.url}
@@ -46,19 +63,19 @@ const Projects = ({ data }: Props) => {
                 layout='fill'
               />
 
-              <div className='projects__modal'>
+              <div className={projects__modal}>
                 <div>
-                  <span className='projects__subtitle'>{type}</span> |{' '}
-                  <span className='project__size'>{size}</span>
-                  <h3 className='projects__title'>{title}</h3>
-                  <div className='project__content'>
-                    <div className='projects__links__container'>
-                      <div className='projects__content__links'>
+                  <span className={projects__subtitle}>{type}</span> |{' '}
+                  <span className={project__size}>{size}</span>
+                  <h3 className={projects__title}>{title}</h3>
+                  <div className={project__content}>
+                    <div className={projects__links__container}>
+                      <div className={projects__content__links}>
                         <a
                           target='_blank'
                           href={githubUrl}
                           rel='noreferrer'
-                          className='projects__button button button__small'
+                          className={`${projects__button} button button__small`}
                           title='github repo'
                         >
                           <RiGithubFill />
@@ -67,15 +84,14 @@ const Projects = ({ data }: Props) => {
                           href={previewUrl}
                           target='_blank'
                           rel='noreferrer'
-                          className='projects__button button button__small'
+                          className={`${projects__button} button button__small`}
                           title='live preview'
                         >
                           <RiArrowRightUpFill />
                         </a>
                       </div>
                       <span
-                        className='projects__button button button__small project__size'
-                        style={{ cursor: 'pointer' }}
+                        className={`${projects__button} ${project__size} button button__small`}
                         onClick={() => {
                           setShowModal(true)
                           setValue(i)
@@ -91,13 +107,13 @@ const Projects = ({ data }: Props) => {
                         project={project}
                       />
                     )}
-                    <div className='projects__tags'>
+                    <div className={projects__tags}>
                       {technologies.map((tech, i) => {
                         return (
                           <div
                             key={i}
                             title={tech.name}
-                            className='projects__tag'
+                            className={projects__tag}
                           >
                             <Image
                               width={30}
@@ -121,7 +137,7 @@ const Projects = ({ data }: Props) => {
       </div>
       <Link href='/projects'>
         <a
-          className='button projects__btn'
+          className={`button ${projects__btn}`}
           style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
         >
           {t('home:view_all')}

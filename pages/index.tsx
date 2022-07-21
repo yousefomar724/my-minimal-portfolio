@@ -8,7 +8,7 @@ import {
   Skills,
   Posts,
 } from '../components'
-import TopbarWithNoSSR from '../components/topbarWithNoSSR'
+import TopbarWithNoSSR from '../components/topbar/topbarWithNoSSR'
 import { getHomePosts } from '../services'
 import { Post, Project } from '../types'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

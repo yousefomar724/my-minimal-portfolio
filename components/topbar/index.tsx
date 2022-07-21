@@ -4,8 +4,10 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import styles from './topbar.module.css'
 
 const Topbar = () => {
+  const { t } = useTranslation()
   const [value, setValue] = useState(0)
   const [isDark, setIsDark] = useState(
     JSON.parse(localStorage.getItem('portfolio-dark-theme')!) || false
@@ -50,7 +52,6 @@ const Topbar = () => {
     setValue(index)
   }
 
-  const { t } = useTranslation()
   const colors = [
     {
       color: t('home:blue'),
@@ -89,12 +90,12 @@ const Topbar = () => {
         {isDark ? (
           <RiSunLine
             onClick={() => setIsDark(!isDark)}
-            className='change-theme'
+            className={styles.change__theme}
           />
         ) : (
           <RiMoonLine
             onClick={() => setIsDark(!isDark)}
-            className='change-theme'
+            className={styles.change__theme}
           />
         )}
       </motion.div>
@@ -106,13 +107,13 @@ const Topbar = () => {
       >
         {router.locale === 'ar' ? (
           <Link href={router.asPath} locale='en'>
-            <span className='change-lang' title='English'>
+            <span className={styles.change__lang} title='English'>
               E
             </span>
           </Link>
         ) : (
           <Link href={router.asPath} locale='ar'>
-            <span className='change-lang' title='اللغة العربية'>
+            <span className={styles.change__lang} title='اللغة العربية'>
               ع
             </span>
           </Link>
@@ -121,7 +122,7 @@ const Topbar = () => {
 
       {/* Colors Theme Btns */}
       <motion.div
-        className='color-btns'
+        className={styles.color__btns}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -132,7 +133,9 @@ const Topbar = () => {
             <div
               onClick={() => handleColors(hue, sat, lig, index)}
               title={color}
-              className={`color-btn ${value === index && 'color-btn-active'}`}
+              className={`${styles.color__btn} ${
+                value === index && styles.color__btn__active
+              }`}
               style={{
                 backgroundColor: `hsl(${hue}, ${sat}, ${lig})`,
               }}

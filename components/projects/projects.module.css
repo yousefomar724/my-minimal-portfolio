@@ -1,0 +1,111 @@
+.projects__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.projects__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.projects__card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  width: min(380px, 100%);
+  min-height: 250px;
+  transition: 0.3s;
+  border: 1px solid var(--first-color);
+}
+.projects__card:hover {
+  box-shadow: 0 8px 24px hsla(var(--hue), var(--sat), var(--lig), 0.25);
+}
+.projects__modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: -100%;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    hsla(var(--hue), 24%, 40%, 0.3) 0%,
+    hsla(var(--hue), 24%, 4%, 1) 95%
+  );
+  display: grid;
+  align-items: flex-end;
+  padding: 1.5rem 1.25rem;
+  transition: 0.3s;
+}
+.projects__card:hover .projects__modal {
+  bottom: 0;
+}
+.projects__title {
+  color: #fff;
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.75rem;
+}
+.projects__subtitle {
+  color: #fff;
+  font-size: var(--smaller-font-size);
+}
+.project__size {
+  font-size: 0.8rem;
+  padding: 0.1rem 0.2rem;
+  color: white;
+  background-color: var(--first-color);
+  border-radius: 0.25rem;
+  font-size: var(--smaller-font-size);
+  cursor: pointer;
+}
+.project__content {
+  display: flex;
+  flex-direction: column;
+}
+.projects__links__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.projects__content__links {
+  display: flex;
+  gap: 0.5rem;
+}
+.projects__button {
+  padding: 0.5rem;
+}
+.projects__btn {
+  grid-column: span 2;
+  width: min(380px, 100%);
+  justify-self: center;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem auto 0;
+  display: flex;
+  justify-content: center;
+  font-size: var(--small-font-size);
+}
+.projects__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+.projects__tag {
+  color: var(--body-color);
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  display: grid;
+  place-items: center;
+}
+
+.dark-theme .projects__tag {
+  color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .projects__modal {
+    padding: 1.5rem;
+  }
+}

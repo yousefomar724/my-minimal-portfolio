@@ -1,0 +1,74 @@
+.change__theme {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  font-size: 1.25rem;
+  color: var(--title-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.change__theme:hover {
+  color: var(--first-color);
+}
+.change__lang {
+  position: absolute;
+  top: 1.2rem;
+  font-size: 1.25rem;
+  right: 50%;
+  transform: translateX(50%);
+  color: var(--title-color);
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--title-color);
+}
+.change__lang:hover {
+  color: var(--first-color);
+}
+.color__btns {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  cursor: pointer;
+  display: flex;
+  gap: 0.4rem;
+}
+.color__btn {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color__btn__active::after {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid inherit;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--first-color);
+}
+
+@media screen and (min-width: 992px) {
+  .change__theme {
+    top: 2.5rem;
+    right: 2.5rem;
+  }
+  .change__lang {
+    top: 2.5rem;
+  }
+  .color__btns {
+    top: 2.5rem;
+    left: 2.5rem;
+  }
+}

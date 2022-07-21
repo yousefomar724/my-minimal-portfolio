@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import styles from './skills.module.css'
 
 const Skills = () => {
   const { t } = useTranslation()
@@ -60,38 +61,47 @@ const Skills = () => {
       ],
     },
   }
+  const {
+    skills__content,
+    skills__title,
+    skills__box,
+    skills__group,
+    skills__data,
+    skills__name,
+    skills__level,
+  } = styles
   return (
     <div
-      className='skills__content grid'
+      className={skills__content}
       style={router.locale === 'ar' ? { direction: 'rtl' } : {}}
     >
-      <div className='skills__area'>
-        <h3 className='skills__title'>{skillsData.frontend.title}</h3>
+      <div>
+        <h3 className={skills__title}>{skillsData.frontend.title}</h3>
 
-        <div className='skills__box'>
-          <div className='skills__group'>
+        <div className={skills__box}>
+          <div className={skills__group}>
             {skillsData.frontend.frontendSkills.slice(0, 3).map((skill, i) => {
               return (
-                <div className='skills__data' key={i}>
+                <div className={skills__data} key={i}>
                   <i className='ri-checkbox-circle-line'></i>
 
                   <div>
-                    <h3 className='skills__name'>{skill.tech}</h3>
-                    <span className='skills__level'>{skill.level}</span>
+                    <h3 className={skills__name}>{skill.tech}</h3>
+                    <span className={skills__level}>{skill.level}</span>
                   </div>
                 </div>
               )
             })}
           </div>
-          <div className='skills__group'>
+          <div className={skills__group}>
             {skillsData.frontend.frontendSkills.slice(3, 6).map((skill, i) => {
               return (
-                <div className='skills__data' key={i}>
+                <div className={skills__data} key={i}>
                   <i className='ri-checkbox-circle-line'></i>
 
                   <div>
-                    <h3 className='skills__name'>{skill.tech}</h3>
-                    <span className='skills__level'>{skill.level}</span>
+                    <h3 className={skills__name}>{skill.tech}</h3>
+                    <span className={skills__level}>{skill.level}</span>
                   </div>
                 </div>
               )
@@ -99,33 +109,33 @@ const Skills = () => {
           </div>
         </div>
       </div>
-      <div className='skills__area'>
-        <h3 className='skills__title'>{skillsData.backend.title}</h3>
+      <div>
+        <h3 className={skills__title}>{skillsData.backend.title}</h3>
 
-        <div className='skills__box'>
-          <div className='skills__group'>
+        <div className={skills__box}>
+          <div className={skills__group}>
             {skillsData.backend.backendSkills.slice(0, 3).map((skill, i) => {
               return (
-                <div className='skills__data' key={i}>
+                <div className={skills__data} key={i}>
                   <i className='ri-checkbox-circle-line'></i>
 
                   <div>
-                    <h3 className='skills__name'>{skill.tech}</h3>
-                    <span className='skills__level'>{skill.level}</span>
+                    <h3 className={skills__name}>{skill.tech}</h3>
+                    <span className={skills__level}>{skill.level}</span>
                   </div>
                 </div>
               )
             })}
           </div>
-          <div className='skills__group'>
+          <div className={skills__group}>
             {skillsData.backend.backendSkills.slice(3, 5).map((skill, i) => {
               return (
-                <div className='skills__data' key={i}>
+                <div className={skills__data} key={i}>
                   <i className='ri-checkbox-circle-line'></i>
 
                   <div>
-                    <h3 className='skills__name'>{skill.tech}</h3>
-                    <span className='skills__level'>{skill.level}</span>
+                    <h3 className={skills__name}>{skill.tech}</h3>
+                    <span className={skills__level}>{skill.level}</span>
                   </div>
                 </div>
               )

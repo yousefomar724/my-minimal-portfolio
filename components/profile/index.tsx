@@ -9,10 +9,26 @@ import {
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import styles from './profile.module.css'
 
 const Profile = () => {
   const router = useRouter()
   const { t } = useTranslation()
+  const {
+    profile__container,
+    profile__data,
+    profile__data__container,
+    profile__name,
+    profile__profession,
+    profile__social,
+    profile__social__link,
+    profile__info,
+    profile__info__group,
+    profile__info__number,
+    profile__info__description,
+    profile__buttons,
+    profile__buttons__small,
+  } = styles
 
   const socialLinks = [
     {
@@ -31,24 +47,44 @@ const Profile = () => {
       url: 'https://github.com/yousefomar724',
     },
   ]
+  const experiences = [
+    {
+      arNum: '+١',
+      enNum: '+1',
+      text1: t('home:work_experience1'),
+      text2: t('home:work_experience2'),
+    },
+    {
+      arNum: '+٢٠',
+      enNum: '+20',
+      text1: t('home:completed_projects1'),
+      text2: t('home:completed_projects2'),
+    },
+    {
+      arNum: '٢',
+      enNum: '2',
+      text1: t('home:num_of_customers1'),
+      text2: t('home:num_of_customers2'),
+    },
+  ]
 
   return (
-    <div className='profile__container grid'>
-      <div className='profile__data'>
+    <div className={profile__container}>
+      <div className={profile__data}>
         {/* Profile Data */}
         <motion.div
-          className='profile__data__container'
+          className={profile__data__container}
           initial={{ x: -1000, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <h2 className='profile__name'>{t('common:my_name')}</h2>
-          <h3 className='profile__profession'>{t('home:job_title')}</h3>
+          <h2 className={profile__name}>{t('common:my_name')}</h2>
+          <h3 className={profile__profession}>{t('home:job_title')}</h3>
         </motion.div>
 
         {/* Social Links */}
         <motion.ul
-          className='profile__social'
+          className={profile__social}
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
@@ -62,7 +98,7 @@ const Profile = () => {
                 title={socialLink.title}
                 target='_blank'
                 rel='noreferrer'
-                className='profile__social-link'
+                className={profile__social__link}
                 key={i}
               >
                 <socialLink.icon />
@@ -78,40 +114,22 @@ const Profile = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className='profile__info grid'
+        className={profile__info}
       >
-        <div className='profile__info-group'>
-          <h3 className='profile__info-number'>
-            {router.locale === 'ar' ? '+١' : '+1'}
-          </h3>
-          <p className='profile__info-description'>
-            {t('home:work_experience1')} <br /> {t('home:work_experience2')}
-          </p>
-        </div>
-        <div className='profile__info-group'>
-          <h3 className='profile__info-number'>
-            {router.locale === 'ar' ? '+٢٠' : '+20'}
-          </h3>
-          <p className='profile__info-description'>
-            {t('home:completed_projects1')}
-            <br />
-            {t('home:completed_projects2')}
-          </p>
-        </div>
-        <div className='profile__info-group'>
-          <h3 className='profile__info-number'>
-            {router.locale === 'ar' ? '٢' : '2'}
-          </h3>
-          <p className='profile__info-description'>
-            {t('home:num_of_customers1')}
-            <br />
-            {t('home:num_of_customers2')}
-          </p>
-        </div>
+        {experiences.map((experience, i) => (
+          <div key={i} className={profile__info__group}>
+            <h3 className={profile__info__number}>
+              {router.locale === 'ar' ? experience.arNum : experience.enNum}
+            </h3>
+            <p className={profile__info__description}>
+              {experience.text1} <br /> {experience.text2}
+            </p>
+          </div>
+        ))}
       </motion.div>
 
       {/* Contact Btns */}
-      <div className='profile__buttons'>
+      <div className={profile__buttons}>
         <motion.a
           download='Yousef Omar'
           href='/YousefOmar.pdf'
@@ -130,7 +148,7 @@ const Profile = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className='profile__buttons-small'
+          className={profile__buttons__small}
         >
           <motion.a
             href='https://api.whatsapp.com/send?phone=+201100124479&text=Hello, more information!'
