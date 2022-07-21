@@ -1,22 +1,20 @@
-import Projectstyles from '../projects/projects.module.css'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
-import { getAllPosts, GRAPHCMS_ENDPOINT } from '../../services'
+import { allPostsQuery, getAllPosts, GRAPHCMS_ENDPOINT } from '../../services'
 import { DataProps, Post } from '../../types'
 import styles from './blog.module.css'
 import useSWR from 'swr'
 import { useState } from 'react'
 import request from 'graphql-request'
 import Head from 'next/head'
-import TopbarWithNoSSR from '../../components/topbar/topbarWithNoSSR'
 import React from 'react'
 import Loader from '../../components/loader'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { motion } from 'framer-motion'
-import { Footer } from '../../components'
+import { Footer, SinglePost, TopbarWithNoSSR } from '../../components'
 
 export const getStaticProps = async (context: { locale: string }) => {
   const posts = (await getAllPosts()) || []
@@ -37,40 +35,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
   const router = useRouter()
   const [skip, setSkip] = useState(0)
   const { data, error } = useSWR(
-    [
-      GRAPHCMS_ENDPOINT,
-      `  query allPosts($skip: Int) {
-      postsConnection(orderBy: createdAt_DESC, first: 5, skip: $skip) {
-        edges {
-          node {
-            title
-            createdAt
-            excerpt
-            language
-            categories {
-              name
-              slug
-            }
-            slug
-            content {
-              markdown
-            }
-            featuredImage {
-              url
-              width
-              height
-            }
-          }
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          pageSize
-        }
-      }
-    }`,
-      skip,
-    ],
+    [GRAPHCMS_ENDPOINT, allPostsQuery, skip],
     (endPoint, query) => fetchData(endPoint, query, { skip }),
     { initialData: posts, revalidateOnFocus: false } as unknown as DataProps
   )
@@ -78,13 +43,14 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const {
+    container,
     blog,
     blog__container,
     blog__title,
     blog__btns,
     blog__search,
     backhome__btn,
-    loader__container,
+    blog__cards,
   } = styles
 
   const filteredPosts = data?.postsConnection?.edges?.filter(
@@ -109,7 +75,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
       <Head>
         <title>{t('blog:the_blog')}</title>
       </Head>
-      <header className='profile container'>
+      <header className={container}>
         <TopbarWithNoSSR />
       </header>
 
@@ -146,26 +112,20 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
               style={{ width: '100%' }}
             />
           </div>
-          <div className={Projectstyles.project__cards}>
+          <div className={blog__cards}>
             {data ? (
               filteredPosts?.length > 0 ? (
                 filteredPosts.map((post: { node: Post }) => (
-                  // <SingleProject key={post?.node?.slug} data={post?.node!} />
-                  <h1>{post.node.title}</h1>
+                  <SinglePost post={post?.node!} />
                 ))
               ) : (
                 <h1>{t('blog:no_results')} :/</h1>
               )
             ) : (
-              <div className={loader__container}>
-                <Loader />
-              </div>
+              <Loader />
             )}
           </div>
-          <div
-            className={blog__btns}
-            style={{ width: 'min(100% - 2rem, 600px)', margin: 'auto' }}
-          >
+          <div className={blog__btns}>
             <button
               disabled={!data?.postsConnection?.pageInfo?.hasPreviousPage}
               onClick={() => setSkip((lastValue) => lastValue - 5)}

@@ -8,8 +8,12 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import request from 'graphql-request'
 import Head from 'next/head'
-import TopbarWithNoSSR from '../../components/topbar/topbarWithNoSSR'
-import { Footer, Loader, SingleProject } from '../../components'
+import {
+  Footer,
+  Loader,
+  SingleProject,
+  TopbarWithNoSSR,
+} from '../../components'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -201,7 +205,7 @@ const ProjectsPage: NextPage<{ projects: any }> = ({ projects }) => {
               selectedProjects.map((project: { node: Project }) => (
                 <SingleProject
                   key={project?.node?.slug}
-                  data={project?.node!}
+                  project={project?.node!}
                 />
               ))
             ) : (

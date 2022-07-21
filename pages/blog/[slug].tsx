@@ -1,140 +1,20 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri'
-import { getPost, getPostsSlugs } from '../../services'
-import { Post, Type } from '../../types'
+import { getPost, getPostsSlugs, getContentFragment } from '../../services'
+import { Post } from '../../types'
 import styles from './blog.module.css'
 import { GetStaticPaths } from 'next'
 import Image from 'next/image'
 import Head from 'next/head'
-import Footer from '../../components/footer'
 import moment from 'moment'
-import TopbarWithNoSSR from '../../components/topbar/topbarWithNoSSR'
-import React, { ReactNode } from 'react'
-import Highlight from 'react-highlight'
-import ScrollToTop from '../../components/scrollToTop'
+import { ScrollToTop, TopbarWithNoSSR, Footer } from '../../components'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { Context } from 'vm'
+import React from 'react'
 
-const getContentFragment = (
-  index: number,
-  text: string | ReactNode,
-  obj?: any,
-  type?: Type
-) => {
-  let modifiedText: any = text
-
-  if (obj) {
-    if (obj.bold) {
-      modifiedText = <b key={index}>{text}</b>
-    }
-
-    if (obj.italic) {
-      modifiedText = <em key={index}>{text}</em>
-    }
-
-    if (obj.underline) {
-      modifiedText = <u key={index}>{text}</u>
-    }
-    if (obj.code) {
-      modifiedText = <code key={index}>{text}</code>
-    }
-    if (obj.type === 'link') {
-      modifiedText = (
-        <a key={index} href={obj?.href} target='_blank' rel='noreferrer'>
-          {obj?.children?.map((item: any, i: number) => {
-            if (item?.code) {
-              return <code key={i}>{item.text}</code>
-            }
-            if (item.type === 'link') {
-              return (
-                <React.Fragment key={i}>{item.children[0].text}</React.Fragment>
-              )
-            }
-            return <React.Fragment key={i}>{item.text}</React.Fragment>
-          })}
-        </a>
-      )
-    }
-  }
-
-  switch (type) {
-    case 'heading-one':
-      return (
-        <h1 key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </h1>
-      )
-    case 'heading-two':
-      return (
-        <h2 key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </h2>
-      )
-    case 'heading-three':
-      return (
-        <h3 key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </h3>
-      )
-    case 'heading-four':
-      return (
-        <h4 key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </h4>
-      )
-    case 'bulleted-list':
-      return (
-        <ul key={index}>
-          {obj.children.map((item: any, i: number) => (
-            <React.Fragment key={i}>
-              {item.children.map((childItem: any, childI: number) => (
-                <React.Fragment key={childI}>
-                  {childItem.children.map(
-                    (grandChildItem: any, grandChildI: number) => (
-                      <li key={grandChildI}>{grandChildItem.text}</li>
-                    )
-                  )}
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ))}
-        </ul>
-      )
-    case 'paragraph':
-      return (
-        <p key={index}>
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </p>
-      )
-    case 'code-block':
-      return <Highlight key={index}>{modifiedText}</Highlight>
-    case 'image':
-      return (
-        <img
-          key={index}
-          alt={obj.title}
-          height={obj.height}
-          width={obj.width}
-          src={obj.src}
-        />
-      )
-    default:
-      return modifiedText
-  }
-}
-
-export const getStaticProps = async (context: any) => {
+export const getStaticProps = async (context: Context) => {
   const post = await getPost(context.params.slug)
   return {
     props: {
@@ -176,6 +56,7 @@ const PostDetails = ({ post }: { post: Post }) => {
   const { t } = useTranslation()
 
   const {
+    container,
     blog,
     blog__container,
     blog__title,
@@ -204,11 +85,11 @@ const PostDetails = ({ post }: { post: Post }) => {
 
   if (router.isFallback) return <h1>Loading...</h1>
   return (
-    <div>
+    <div style={{ maxWidth: '600px', margin: 'auto' }}>
       <Head>
         <title>{title}</title>
       </Head>
-      <header className='profile container'>
+      <header className={container}>
         <TopbarWithNoSSR />
       </header>
       <div className={blog}>

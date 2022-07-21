@@ -1,7 +1,13 @@
+.container {
+  position: relative;
+  padding-top: 3.5rem;
+  max-width: 968px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
 .blog {
   display: flex;
   flex-direction: column;
-  /* max-width: 600px; */
   margin: 2rem auto;
 }
 .blog__container {
@@ -14,6 +20,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: min(100% - 2rem, 600px);
+  margin: auto;
 }
 .backhome__btn {
   width: fit-content;
@@ -25,6 +33,14 @@
   pointer-events: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
+}
+.blog__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 3rem auto;
 }
 .blog__heading {
   display: flex;
@@ -119,4 +135,21 @@
 }
 .blog__content a:hover {
   text-decoration: underline;
+}
+
+/* For small devices */
+@media screen and (max-width: 320px) {
+  .container {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 992px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 4rem;
+  }
 }

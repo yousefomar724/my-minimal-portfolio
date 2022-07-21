@@ -4,7 +4,7 @@ import moment from 'moment'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const SingleProject = ({ data }: { data: Project }) => {
+const SingleProject = ({ project }: { project: Project }) => {
   const router = useRouter()
   const {
     project__card,
@@ -28,9 +28,9 @@ const SingleProject = ({ data }: { data: Project }) => {
     technologies,
     updatedAt,
     previewUrl,
-  } = data
+  } = project
   return (
-    <div className={project__card} key={slug}>
+    <div className={project__card}>
       <div className={project__card__container}>
         <img src={image?.url} alt={title} className={project__card__img} />
         <div
@@ -42,11 +42,9 @@ const SingleProject = ({ data }: { data: Project }) => {
             <small className={project__size}>{size}</small>
           </div>
           <div className={project__heading}>
-            <Link href={previewUrl}>
-              <a target={'_blank'} rel={'noreferrer'}>
-                <h3 className={project__card__title}>{title}</h3>
-              </a>
-            </Link>
+            <a href={previewUrl} target='_blank' rel='noreferrer'>
+              <h3 className={project__card__title}>{title}</h3>
+            </a>
           </div>
           <small className={project__updatedAt}>
             {moment(updatedAt).format('DD/MM/YYYY')}
