@@ -116,7 +116,7 @@ const Blog: NextPage<{ posts: any }> = ({ posts }) => {
             {data ? (
               filteredPosts?.length > 0 ? (
                 filteredPosts.map((post: { node: Post }) => (
-                  <SinglePost post={post?.node!} />
+                  <SinglePost key={post?.node?.slug} post={post?.node!} />
                 ))
               ) : (
                 <h1>{t('blog:no_results')} :/</h1>
